@@ -15,11 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const db_1 = require("../db/");
-const validator_1 = require("../validator");
+const common_1 = require("@thimayarohit/common");
 const middleware_1 = require("../middleware");
 const router = express_1.default.Router();
 router.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const reqBody = validator_1.userInputSchema.safeParse(req.body);
+    const reqBody = common_1.userInputSchema.safeParse(req.body);
     if (!reqBody.success) {
         return res.status(403).json({
             message: "Invalid Input!"
@@ -39,7 +39,7 @@ router.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function*
     res.json({ message: "User Succesfully Created!", token });
 }));
 router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const reqBody = validator_1.userInputSchema.safeParse(req.body);
+    const reqBody = common_1.userInputSchema.safeParse(req.body);
     if (!reqBody.success) {
         return res.status(403).json({ message: "Invalid Inputs!" });
     }

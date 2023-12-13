@@ -1,7 +1,7 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import { User } from "../db/";
-import { userInputSchema } from "../validator";
+import { userInputSchema } from "@thimayarohit/common";
 import { SECRET, authenticateJwt } from "../middleware";
 
 const router = express.Router();
