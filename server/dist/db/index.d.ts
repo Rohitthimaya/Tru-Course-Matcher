@@ -24,25 +24,60 @@
 /// <reference types="mongoose/types/inferschematype" />
 import mongoose from "mongoose";
 export declare const User: mongoose.Model<{
+    courses: mongoose.Types.ObjectId[];
     email?: string | null | undefined;
     password?: string | null | undefined;
 }, {}, {}, {}, mongoose.Document<unknown, {}, {
+    courses: mongoose.Types.ObjectId[];
     email?: string | null | undefined;
     password?: string | null | undefined;
 }> & {
+    courses: mongoose.Types.ObjectId[];
     email?: string | null | undefined;
     password?: string | null | undefined;
 } & {
     _id: mongoose.Types.ObjectId;
 }, mongoose.Schema<any, mongoose.Model<any, any, any, any, any, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, {
+    courses: mongoose.Types.ObjectId[];
     email?: string | null | undefined;
     password?: string | null | undefined;
 }, mongoose.Document<unknown, {}, mongoose.FlatRecord<{
+    courses: mongoose.Types.ObjectId[];
     email?: string | null | undefined;
     password?: string | null | undefined;
 }>> & mongoose.FlatRecord<{
+    courses: mongoose.Types.ObjectId[];
     email?: string | null | undefined;
     password?: string | null | undefined;
+}> & {
+    _id: mongoose.Types.ObjectId;
+}>>;
+export declare const Course: mongoose.Model<{
+    courseName?: string | null | undefined;
+    courseNum?: number | null | undefined;
+    courseCrn?: number | null | undefined;
+}, {}, {}, {}, mongoose.Document<unknown, {}, {
+    courseName?: string | null | undefined;
+    courseNum?: number | null | undefined;
+    courseCrn?: number | null | undefined;
+}> & {
+    courseName?: string | null | undefined;
+    courseNum?: number | null | undefined;
+    courseCrn?: number | null | undefined;
+} & {
+    _id: mongoose.Types.ObjectId;
+}, mongoose.Schema<any, mongoose.Model<any, any, any, any, any, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, {
+    courseName?: string | null | undefined;
+    courseNum?: number | null | undefined;
+    courseCrn?: number | null | undefined;
+}, mongoose.Document<unknown, {}, mongoose.FlatRecord<{
+    courseName?: string | null | undefined;
+    courseNum?: number | null | undefined;
+    courseCrn?: number | null | undefined;
+}>> & mongoose.FlatRecord<{
+    courseName?: string | null | undefined;
+    courseNum?: number | null | undefined;
+    courseCrn?: number | null | undefined;
 }> & {
     _id: mongoose.Types.ObjectId;
 }>>;

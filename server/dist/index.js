@@ -6,14 +6,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const auth_1 = __importDefault(require("./routes/auth"));
+const course_1 = __importDefault(require("./routes/course"));
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 const port = 3000;
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 app.use("/auth", auth_1.default);
-// mongoose.connect('mongodb+srv://thimayarohit:Rohit2728@cluster0.ulnmn04.mongodb.net/compcourses', {dbName: "compcourses"});
-mongoose_1.default.connect('mongodb://0.0.0.0:27017/compcourses', { dbName: "compcourses" });
+app.use("/courses", course_1.default);
+mongoose_1.default.connect('mongodb+srv://thimayarohit:Rohit2728@cluster0.ulnmn04.mongodb.net/compcourses', { dbName: "compcourses" });
 app.listen(port, () => {
     console.log(`App Running on http://localhost:${port}`);
 });
