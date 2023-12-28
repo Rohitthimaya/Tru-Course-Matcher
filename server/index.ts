@@ -2,7 +2,9 @@ import express from "express";
 import mongoose from "mongoose";
 import authRoutes from "./routes/auth";
 import courseRoutes from "./routes/course";
+import { User } from "./db/index";
 import cors from "cors";
+import { authenticateJwt } from "./middleware";
 
 const app = express();
 const port = 3000;
@@ -11,6 +13,21 @@ app.use(express.json());
 app.use(cors());
 app.use("/auth", authRoutes);
 app.use("/courses", courseRoutes);
+
+app.get("/me", authenticateJwt, async (req, res) => {
+    const userId = req.headers.id;
+    const user = await User.findById(userId);
+
+    if (!user) {
+        return res.status(403).json({
+            message: "User Doesnt Already Exist!"
+        })
+    }
+
+    res.json({
+        email: user.email
+    })
+})
 
 mongoose.connect('mongodb+srv://thimayarohit:Rohit2728@cluster0.ulnmn04.mongodb.net/compcourses', {dbName: "compcourses"});
 
