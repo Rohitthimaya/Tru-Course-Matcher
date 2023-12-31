@@ -25,30 +25,48 @@
 import mongoose from "mongoose";
 export declare const User: mongoose.Model<{
     courses: mongoose.Types.ObjectId[];
+    firstName?: string | null | undefined;
+    lastName?: string | null | undefined;
     email?: string | null | undefined;
     password?: string | null | undefined;
+    SocialHandle?: string | null | undefined;
 }, {}, {}, {}, mongoose.Document<unknown, {}, {
     courses: mongoose.Types.ObjectId[];
+    firstName?: string | null | undefined;
+    lastName?: string | null | undefined;
     email?: string | null | undefined;
     password?: string | null | undefined;
+    SocialHandle?: string | null | undefined;
 }> & {
     courses: mongoose.Types.ObjectId[];
+    firstName?: string | null | undefined;
+    lastName?: string | null | undefined;
     email?: string | null | undefined;
     password?: string | null | undefined;
+    SocialHandle?: string | null | undefined;
 } & {
     _id: mongoose.Types.ObjectId;
 }, mongoose.Schema<any, mongoose.Model<any, any, any, any, any, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, {
     courses: mongoose.Types.ObjectId[];
+    firstName?: string | null | undefined;
+    lastName?: string | null | undefined;
     email?: string | null | undefined;
     password?: string | null | undefined;
+    SocialHandle?: string | null | undefined;
 }, mongoose.Document<unknown, {}, mongoose.FlatRecord<{
     courses: mongoose.Types.ObjectId[];
+    firstName?: string | null | undefined;
+    lastName?: string | null | undefined;
     email?: string | null | undefined;
     password?: string | null | undefined;
+    SocialHandle?: string | null | undefined;
 }>> & mongoose.FlatRecord<{
     courses: mongoose.Types.ObjectId[];
+    firstName?: string | null | undefined;
+    lastName?: string | null | undefined;
     email?: string | null | undefined;
     password?: string | null | undefined;
+    SocialHandle?: string | null | undefined;
 }> & {
     _id: mongoose.Types.ObjectId;
 }>>;

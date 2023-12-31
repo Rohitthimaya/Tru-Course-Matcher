@@ -17,9 +17,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const db_1 = require("../db/");
 const common_1 = require("@thimayarohit/common");
 const middleware_1 = require("../middleware");
-// import cors from "cors";
 const router = express_1.default.Router();
-// router.use(cors);
 router.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const reqBody = common_1.userInputSchema.safeParse(req.body);
     if (!reqBody.success) {
@@ -29,7 +27,10 @@ router.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
     const email = reqBody.data.email;
     const password = reqBody.data.password;
-    const user = yield db_1.User.findOne({ email, password });
+    const firstName = reqBody.data.firstName;
+    const lastName = reqBody.data.lastName;
+    const socialHandle = reqBody.data.socialHandle;
+    const user = yield db_1.User.findOne({ email, password, firstName, lastName, socialHandle });
     if (user) {
         return res.status(403).json({
             message: "User Already Exist!"

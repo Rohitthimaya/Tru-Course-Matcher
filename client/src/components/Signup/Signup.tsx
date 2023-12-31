@@ -3,6 +3,8 @@ import AppBar from "../Appbar/Appbar";
 import { TextField, Button, Container, Typography, Paper } from "@mui/material";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { userState } from "../../store/atoms/user";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const Signup = () => {
     const [firstName, setFirstName] = useState("");
@@ -10,11 +12,25 @@ export const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [socialHandle, setSocialHandle] = useState("");
+    const setUser = useSetRecoilState(userState);
+    const navigate = useNavigate();
 
-    const handleSubmit = (e: { preventDefault: () => void; }) => {
-        e.preventDefault();
-
+    const handleSubmit = () => {
         // Your form submission logic here
+        axios.post("http://localhost:3000/auth/Signup", {
+            firstName,
+            lastName,
+            email,
+            password,
+            socialHandle
+        }).then((res) => {
+            const data = res.data;
+            const token = data.token
+            localStorage.setItem("Token", token);
+            navigate("/");
+        }).catch((err) => {
+            console.log(err);
+        });
 
         // Reset form fields
         setFirstName("");
@@ -22,6 +38,11 @@ export const Signup = () => {
         setEmail("");
         setPassword("");
         setSocialHandle("");
+
+        setUser({
+            isLoading: false,
+            userEmail: email
+        })
     };
 
     return (

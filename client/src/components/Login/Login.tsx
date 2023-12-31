@@ -10,7 +10,6 @@ const Login = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        alert("I am clicked");
         axios
             .post("http://localhost:3000/auth/login", {
                 email,
@@ -19,7 +18,6 @@ const Login = () => {
             .then((response) => {
                 const data = response.data;
                 const token = data.token;
-                console.log(token);
                 localStorage.setItem("Token", token);
                 navigate("/");
             })

@@ -6,8 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Course = exports.User = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const userSchema = new mongoose_1.default.Schema({
+    firstName: String,
+    lastName: String,
     email: String,
     password: String,
+    SocialHandle: String,
     courses: [{ type: mongoose_1.default.Schema.Types.ObjectId, ref: 'Course' }],
 });
 const courseSchema = new mongoose_1.default.Schema({

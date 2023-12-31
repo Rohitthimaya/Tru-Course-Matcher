@@ -7,8 +7,13 @@ exports.userInputSchema = void 0;
 const zod_1 = __importDefault(require("zod"));
 const emailSchema = zod_1.default.string().email();
 const passwordSchema = zod_1.default.string().min(6).max(30);
+const firstNameSchema = zod_1.default.string();
+const lastNameSchema = zod_1.default.string();
+const socialHandleSchema = zod_1.default.string();
 exports.userInputSchema = zod_1.default.object({
     email: emailSchema,
-    password: passwordSchema
+    password: passwordSchema,
+    firstName: firstNameSchema,
+    lastName: lastNameSchema,
+    socialHandle: socialHandleSchema
 });
-console.log("hi there");

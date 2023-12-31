@@ -3,10 +3,8 @@ import jwt from "jsonwebtoken";
 import { User } from "../db/";
 import { userInputSchema } from "@thimayarohit/common";
 import { SECRET, authenticateJwt } from "../middleware";
-// import cors from "cors";
 
 const router = express.Router();
-// router.use(cors);
 
 router.post("/signup", async (req, res) => {
     const reqBody = userInputSchema.safeParse(req.body);
@@ -17,8 +15,11 @@ router.post("/signup", async (req, res) => {
     }
     const email = reqBody.data.email;
     const password = reqBody.data.password;
+    const firstName = reqBody.data.firstName;
+    const lastName = reqBody.data.lastName;
+    const socialHandle = reqBody.data.socialHandle;
 
-    const user = await User.findOne({ email, password });
+    const user = await User.findOne({ email, password, firstName, lastName, socialHandle });
 
     if (user) {
         return res.status(403).json({

@@ -1,8 +1,11 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
+    firstName: String,
+    lastName: String,
     email: String,
     password: String,
+    SocialHandle: String,
     courses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }],
 });
 
