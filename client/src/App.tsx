@@ -1,8 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Landing } from "./components/Landing/Landing";
+import { Signup } from "./components/Signup/Signup";
+import { Matches } from "./components/Matches/Matches";
 import { RecoilRoot, useSetRecoilState } from "recoil";
 import axios from "axios";
-import './App.css';
 import { useEffect } from "react";
 import { userState } from "./store/atoms/user";
 import Login from "./components/Login/Login";
@@ -15,6 +16,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/Login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/matches" element={<Matches />} />
         </Routes>
       </Router>
     </RecoilRoot>

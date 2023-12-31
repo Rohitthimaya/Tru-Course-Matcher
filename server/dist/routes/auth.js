@@ -17,7 +17,9 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const db_1 = require("../db/");
 const common_1 = require("@thimayarohit/common");
 const middleware_1 = require("../middleware");
+// import cors from "cors";
 const router = express_1.default.Router();
+// router.use(cors);
 router.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const reqBody = common_1.userInputSchema.safeParse(req.body);
     if (!reqBody.success) {
@@ -36,6 +38,7 @@ router.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function*
     const newUser = new db_1.User({ email, password });
     yield newUser.save();
     const token = jsonwebtoken_1.default.sign({ id: newUser._id }, middleware_1.SECRET, { expiresIn: "1h" });
+    localStorage.setItem("Token", token);
     res.json({ message: "User Succesfully Created!", token });
 }));
 router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -48,6 +51,7 @@ router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* 
     const user = yield db_1.User.findOne({ email, password });
     if (user) {
         const token = jsonwebtoken_1.default.sign({ id: user._id }, middleware_1.SECRET, { expiresIn: "1h" });
+        // localStorage.setItem("Token", token);
         res.status(200).json({ message: "Login Successfully!", token });
     }
     else {

@@ -3,8 +3,10 @@ import jwt from "jsonwebtoken";
 import { User } from "../db/";
 import { userInputSchema } from "@thimayarohit/common";
 import { SECRET, authenticateJwt } from "../middleware";
+// import cors from "cors";
 
 const router = express.Router();
+// router.use(cors);
 
 router.post("/signup", async (req, res) => {
     const reqBody = userInputSchema.safeParse(req.body);
@@ -27,7 +29,7 @@ router.post("/signup", async (req, res) => {
     const newUser = new User({ email, password });
     await newUser.save();
     const token = jwt.sign({ id: newUser._id }, SECRET, { expiresIn: "1h" });
-    localStorage.setItem("access_token", token);
+    localStorage.setItem("Token", token);
     res.json({ message: "User Succesfully Created!", token });
 })
 
@@ -43,7 +45,7 @@ router.post("/login", async (req, res) => {
     const user = await User.findOne({ email, password });
     if (user) {
         const token = jwt.sign({ id: user._id }, SECRET, { expiresIn: "1h" });
-        localStorage.setItem("access_token", token);
+        // localStorage.setItem("Token", token);
         res.status(200).json({ message: "Login Successfully!", token });
     } else {
         return res.status(403).json({ message: "Invalid Inputs!" });
