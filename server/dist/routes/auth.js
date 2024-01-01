@@ -19,7 +19,7 @@ const common_1 = require("@thimayarohit/common");
 const middleware_1 = require("../middleware");
 const router = express_1.default.Router();
 router.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const reqBody = common_1.userInputSchema.safeParse(req.body);
+    const reqBody = common_1.loginUserInputSchema.safeParse(req.body);
     if (!reqBody.success) {
         return res.status(403).json({
             message: "Invalid Input!"
@@ -43,7 +43,7 @@ router.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function*
     res.json({ message: "User Succesfully Created!", token });
 }));
 router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const reqBody = common_1.userInputSchema.safeParse(req.body);
+    const reqBody = userInputSchema.safeParse(req.body);
     if (!reqBody.success) {
         return res.status(403).json({ message: "Invalid Inputs!" });
     }

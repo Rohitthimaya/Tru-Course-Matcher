@@ -1,5 +1,15 @@
 import z from 'zod';
-export declare const userInputSchema: z.ZodObject<{
+export declare const loginUserInputSchema: z.ZodObject<{
+    email: z.ZodString;
+    password: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    email: string;
+    password: string;
+}, {
+    email: string;
+    password: string;
+}>;
+export declare const signupUserInputSchema: z.ZodObject<{
     email: z.ZodString;
     password: z.ZodString;
     firstName: z.ZodString;
@@ -18,4 +28,5 @@ export declare const userInputSchema: z.ZodObject<{
     lastName: string;
     socialHandle: string;
 }>;
-export type signUpParams = z.infer<typeof userInputSchema>;
+export type signUpParams = z.infer<typeof signupUserInputSchema>;
+export type loginParams = z.infer<typeof loginUserInputSchema>;

@@ -1,13 +1,13 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import { User } from "../db/";
-import { userInputSchema } from "@thimayarohit/common";
+import { loginUserInputSchema, signupUserInputSchema } from "@thimayarohit/common";
 import { SECRET, authenticateJwt } from "../middleware";
 
 const router = express.Router();
 
 router.post("/signup", async (req, res) => {
-    const reqBody = userInputSchema.safeParse(req.body);
+    const reqBody = signupUserInputSchema.safeParse(req.body);
     if (!reqBody.success) {
         return res.status(403).json({
             message: "Invalid Input!"
@@ -35,7 +35,7 @@ router.post("/signup", async (req, res) => {
 })
 
 router.post("/login", async (req, res) => {
-    const reqBody = userInputSchema.safeParse(req.body);
+    const reqBody = loginUserInputSchema.safeParse(req.body);
     if (!reqBody.success) {
         return res.status(403).json({ message: "Invalid Inputs!" });
     }

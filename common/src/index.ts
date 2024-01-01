@@ -6,7 +6,12 @@ const firstNameSchema = z.string();
 const lastNameSchema = z.string();
 const socialHandleSchema = z.string();
 
-export const userInputSchema = z.object({
+export const loginUserInputSchema = z.object({
+    email: emailSchema,
+    password: passwordSchema
+});
+
+export const signupUserInputSchema = z.object({
     email: emailSchema,
     password: passwordSchema ,
     firstName: firstNameSchema,
@@ -15,4 +20,5 @@ export const userInputSchema = z.object({
 });
 
 
-export type signUpParams = z.infer<typeof userInputSchema>;
+export type signUpParams = z.infer<typeof signupUserInputSchema>;
+export type loginParams = z.infer<typeof loginUserInputSchema>;

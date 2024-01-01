@@ -1,6 +1,6 @@
 {
   "name": "@thimayarohit/common",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@thimayarohit/common": "^1.0.0",
+    "@thimayarohit/common": "^1.0.5",
     "zod": "^3.22.4"
   }
 }
