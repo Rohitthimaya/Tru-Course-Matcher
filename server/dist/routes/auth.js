@@ -19,7 +19,7 @@ const common_1 = require("@thimayarohit/common");
 const middleware_1 = require("../middleware");
 const router = express_1.default.Router();
 router.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const reqBody = common_1.loginUserInputSchema.safeParse(req.body);
+    const reqBody = common_1.signupUserInputSchema.safeParse(req.body);
     if (!reqBody.success) {
         return res.status(403).json({
             message: "Invalid Input!"
@@ -36,14 +36,13 @@ router.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function*
             message: "User Already Exist!"
         });
     }
-    const newUser = new db_1.User({ email, password });
+    const newUser = new db_1.User({ email, password, firstName, lastName, socialHandle });
     yield newUser.save();
     const token = jsonwebtoken_1.default.sign({ id: newUser._id }, middleware_1.SECRET, { expiresIn: "1h" });
-    localStorage.setItem("Token", token);
     res.json({ message: "User Succesfully Created!", token });
 }));
 router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const reqBody = userInputSchema.safeParse(req.body);
+    const reqBody = common_1.loginUserInputSchema.safeParse(req.body);
     if (!reqBody.success) {
         return res.status(403).json({ message: "Invalid Inputs!" });
     }

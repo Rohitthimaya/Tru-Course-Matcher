@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Container, Paper, TextField, Button, Typography } from "@mui/material";
-import Appbar from "../Appbar/Appbar";
+import {Appbar} from "../Appbar/Appbar";
+import { useSetRecoilState } from "recoil";
+import { userState } from "../../store/atoms/user";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const setUser = useSetRecoilState(userState);
 
     const handleClick = () => {
         axios
@@ -19,6 +22,10 @@ const Login = () => {
                 const data = response.data;
                 const token = data.token;
                 localStorage.setItem("Token", token);
+                setUser({
+                    isLoading: false,
+                    userEmail: email
+                })
                 navigate("/");
             })
             .catch((err) => {
@@ -28,7 +35,6 @@ const Login = () => {
 
     return (
         <>
-            <Appbar />
             <Container
                 sx={{
                     display: "flex",

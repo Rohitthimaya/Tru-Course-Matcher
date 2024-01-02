@@ -7,17 +7,23 @@ import axios from "axios";
 import { useEffect } from "react";
 import { userState } from "./store/atoms/user";
 import Login from "./components/Login/Login";
+import { Appbar } from "./components/Appbar/Appbar"
+import { Courses } from "./components/Courses/Courses";
+import { Addcourse } from "./components/Addcourse/Addcourse";
 
 function App() {
   return (
     <RecoilRoot>
       <Router>
+        <Appbar />
         <InitUser />
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/Login" element={<Login />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/matches" element={<Matches />} />
+          <Route path="/courses" element={<Courses />} />
+          <Route path="/addcourse" element={<Addcourse/>} />
         </Routes>
       </Router>
     </RecoilRoot>
@@ -42,13 +48,13 @@ const InitUser = () => {
         })
       } else {
         setUser({
-          isLoading: true,
+          isLoading: false,
           userEmail: null
         })
       }
     } catch (error) {
       setUser({
-        isLoading: true,
+        isLoading: false,
         userEmail: null
       })
     }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import AppBar from "../Appbar/Appbar";
+import {Appbar} from "../Appbar/Appbar";
 import { TextField, Button, Container, Typography, Paper } from "@mui/material";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { userState } from "../../store/atoms/user";
@@ -17,7 +17,7 @@ export const Signup = () => {
 
     const handleSubmit = () => {
         // Your form submission logic here
-        axios.post("http://localhost:3000/auth/Signup", {
+        axios.post("http://localhost:3000/auth/signup", {
             firstName,
             lastName,
             email,
@@ -27,27 +27,27 @@ export const Signup = () => {
             const data = res.data;
             const token = data.token
             localStorage.setItem("Token", token);
+
+            setUser({
+                isLoading: false,
+                userEmail: email
+            })
+
+            // Reset form fields
+            setFirstName("");
+            setLastName("");
+            setEmail("");
+            setPassword("");
+            setSocialHandle("");
+
             navigate("/");
         }).catch((err) => {
             console.log(err);
         });
-
-        // Reset form fields
-        setFirstName("");
-        setLastName("");
-        setEmail("");
-        setPassword("");
-        setSocialHandle("");
-
-        setUser({
-            isLoading: false,
-            userEmail: email
-        })
     };
 
     return (
         <>
-            <AppBar />
             <Container
                 sx={{
                     display: "flex",
@@ -68,52 +68,50 @@ export const Signup = () => {
                     <Typography variant="h5" align="center" gutterBottom>
                         Sign Up
                     </Typography>
-                    <form onSubmit={handleSubmit}>
-                        <TextField
-                            label="First Name"
-                            variant="outlined"
-                            fullWidth
-                            margin="normal"
-                            value={firstName}
-                            onChange={(e) => setFirstName(e.target.value)}
-                        />
-                        <TextField
-                            label="Last Name"
-                            variant="outlined"
-                            fullWidth
-                            margin="normal"
-                            value={lastName}
-                            onChange={(e) => setLastName(e.target.value)}
-                        />
-                        <TextField
-                            label="Email"
-                            variant="outlined"
-                            fullWidth
-                            margin="normal"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                        <TextField
-                            label="Password"
-                            variant="outlined"
-                            fullWidth
-                            margin="normal"
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                        <TextField
-                            label="Social Handle"
-                            variant="outlined"
-                            fullWidth
-                            margin="normal"
-                            value={socialHandle}
-                            onChange={(e) => setSocialHandle(e.target.value)}
-                        />
-                        <Button type="submit" variant="contained" sx={{ mt: 2 }}>
-                            Sign Up
-                        </Button>
-                    </form>
+                    <TextField
+                        label="First Name"
+                        variant="outlined"
+                        fullWidth
+                        margin="normal"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                    />
+                    <TextField
+                        label="Last Name"
+                        variant="outlined"
+                        fullWidth
+                        margin="normal"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                    />
+                    <TextField
+                        label="Email"
+                        variant="outlined"
+                        fullWidth
+                        margin="normal"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <TextField
+                        label="Password"
+                        variant="outlined"
+                        fullWidth
+                        margin="normal"
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <TextField
+                        label="Social Handle"
+                        variant="outlined"
+                        fullWidth
+                        margin="normal"
+                        value={socialHandle}
+                        onChange={(e) => setSocialHandle(e.target.value)}
+                    />
+                    <Button onClick={handleSubmit} variant="contained" sx={{ mt: 2 }}>
+                        Sign Up
+                    </Button>
                 </Paper>
             </Container>
         </>
