@@ -67,10 +67,10 @@ router.get('/my-courses', authenticateJwt, async (req, res) => {
             return res.status(404).json({ message: 'Student not found' });
         }
 
-        res.status(200).json({ courses: student.courses });
+        return res.status(200).json({ courses: student.courses });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Internal server error' });
+        return res.status(500).json({ error: 'Internal server error' });
     }
 });
 
