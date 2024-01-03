@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Appbar } from "../Appbar/Appbar";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import axios from "axios";
+import { useRecoilValue } from "recoil";
+import { isAdminState } from "../../store/selectors/isAdmin";
 
 export const Addcourse = () => {
     const [courseName, setCourseName] = useState("");
     const [courseNum, setCourseNum] = useState("");
-    const [courseCrn, setCourseCrn] = useState("")
-
+    const [courseCrn, setCourseCrn] = useState("");
+    const isAdmin = useRecoilValue(isAdminState);
+    const navigate = useNavigate();
 
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
@@ -35,7 +38,12 @@ export const Addcourse = () => {
         setCourseCrn("")
     };
 
+    if(!isAdmin){
+        return <h1>Only For Admins</h1>
+    }
+
     return (
+        
         <div>
             {/* Add Course Form */}
             <Grid container style={{ padding: "5vw" }}>
