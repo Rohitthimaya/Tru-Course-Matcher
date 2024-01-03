@@ -6,10 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import { userState } from "../../store/atoms/user";
+import { isAdminState } from "../../store/selectors/isAdmin";
 
 export const Appbar = () => {
     const userEmail = useRecoilValue(userEmailState);
     const userLoading = useRecoilValue(isUserLoading);
+    const isAdmin = useRecoilValue(isAdminState);
     const navigate = useNavigate();
     const setUser = useSetRecoilState(userState);
 
@@ -24,23 +26,23 @@ export const Appbar = () => {
             padding: 4,
             zIndex: 1
         }}>
-            <div style={{marginLeft: 10, cursor: "pointer"}} onClick={() => {
+            <div style={{ marginLeft: 10, cursor: "pointer" }} onClick={() => {
                 navigate("/")
             }}>
                 <Typography variant={"h6"}>Coursera</Typography>
             </div>
-    
-            <div style={{display: "flex"}}>
-                <div style={{marginRight: 10, display: "flex"}}>
-                <div style={{marginRight: 10}}>
+
+            <div style={{ display: "flex" }}>
+                <div style={{ marginRight: 10, display: "flex" }}>
+                    {isAdmin && <div style={{ marginRight: 10 }}>
                         <Button
                             onClick={() => {
                                 navigate("/addcourse")
                             }}
                         >Add course</Button>
-                    </div>
+                    </div>}
 
-                    <div style={{marginRight: 10}}>
+                    <div style={{ marginRight: 10 }}>
                         <Button
                             onClick={() => {
                                 navigate("/courses")
@@ -48,7 +50,7 @@ export const Appbar = () => {
                         >Courses</Button>
                     </div>
 
-                    <div style={{marginRight: 10}}>
+                    <div style={{ marginRight: 10 }}>
                         <Button
                             onClick={() => {
                                 navigate("/matches")
@@ -62,7 +64,8 @@ export const Appbar = () => {
                             localStorage.setItem("Token", "");
                             setUser({
                                 isLoading: false,
-                                userEmail: null
+                                userEmail: null,
+                                isAdmin: false
                             })
                         }}
                     >Logout</Button>
@@ -76,14 +79,14 @@ export const Appbar = () => {
             padding: 4,
             zIndex: 1
         }}>
-            <div style={{marginLeft: 10, cursor: "pointer"}} onClick={() => {
+            <div style={{ marginLeft: 10, cursor: "pointer" }} onClick={() => {
                 navigate("/")
             }}>
                 <Typography variant={"h6"}>Coursera</Typography>
             </div>
-    
-            <div style={{display: "flex"}}>
-                <div style={{marginRight: 10}}>
+
+            <div style={{ display: "flex" }}>
+                <div style={{ marginRight: 10 }}>
                     <Button
                         variant={"contained"}
                         onClick={() => {

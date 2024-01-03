@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Landing } from "./components/Landing/Landing";
 import { Signup } from "./components/Signup/Signup";
 import { Matches } from "./components/Matches/Matches";
-import { RecoilRoot, useSetRecoilState } from "recoil";
+import { RecoilRoot, useRecoilValue, useSetRecoilState } from "recoil";
 import axios from "axios";
 import { useEffect } from "react";
 import { userState } from "./store/atoms/user";
@@ -23,7 +23,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/matches" element={<Matches />} />
           <Route path="/courses" element={<Courses />} />
-          <Route path="/addcourse" element={<Addcourse/>} />
+          <Route path="/addcourse" element={<Addcourse />} />
         </Routes>
       </Router>
     </RecoilRoot>
@@ -40,22 +40,35 @@ const InitUser = () => {
           "Authorization": "Bearer " + localStorage.getItem("Token")
         }
       })
+      const email = response.data.email;
 
-      if (response.data.email) {
-        setUser({
-          isLoading: false,
-          userEmail: response.data.email
-        })
+      if (email) {
+        if(email == "thimayarohit@gmail.com"){
+          setUser({
+            isLoading: false,
+            userEmail: response.data.email,
+            isAdmin: true
+          })
+        }else{
+          setUser({
+            isLoading: false,
+            userEmail: response.data.email,
+            isAdmin: false
+          })
+        }
+        
       } else {
         setUser({
           isLoading: false,
-          userEmail: null
+          userEmail: null,
+          isAdmin: false
         })
       }
     } catch (error) {
       setUser({
         isLoading: false,
-        userEmail: null
+        userEmail: null,
+        isAdmin: false
       })
     }
   };

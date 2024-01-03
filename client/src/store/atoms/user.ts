@@ -2,13 +2,15 @@ import { atom } from "recoil";
 
 interface UserState {
     isLoading: boolean,
-    userEmail: string | null
+    userEmail: string | null,
+    isAdmin: boolean
 }
 
 export const userState = atom<UserState>({
     key: 'useState',
     default: {
         isLoading: true,
-        userEmail: null
+        userEmail: null,
+        isAdmin: false
     }
 });
