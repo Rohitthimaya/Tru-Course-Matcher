@@ -11,7 +11,6 @@ export const Addcourse = () => {
     const [courseNum, setCourseNum] = useState("");
     const [courseCrn, setCourseCrn] = useState("");
     const isAdmin = useRecoilValue(isAdminState);
-    const navigate = useNavigate();
 
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
