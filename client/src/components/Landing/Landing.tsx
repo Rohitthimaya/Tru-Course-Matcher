@@ -14,10 +14,6 @@ export const Landing = () => {
 
     console.log(userEmail, userLoading);
 
-    if (userLoading) {
-        return <>Loading....</>;
-    }
-
     return (
         <div>
             {/* Title Section */}
@@ -85,5 +81,5 @@ export const Landing = () => {
                 </Grid>
             </Grid>
         </div>
-    );
+    )
 };

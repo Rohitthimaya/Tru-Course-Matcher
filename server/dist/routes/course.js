@@ -66,11 +66,11 @@ router.get('/my-courses', index_1.authenticateJwt, (req, res) => __awaiter(void 
         if (!student) {
             return res.status(404).json({ message: 'Student not found' });
         }
-        res.status(200).json({ courses: student.courses });
+        return res.status(200).json({ courses: student.courses });
     }
     catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Internal server error' });
+        return res.status(500).json({ error: 'Internal server error' });
     }
 }));
 // Get matched courses and details of other students

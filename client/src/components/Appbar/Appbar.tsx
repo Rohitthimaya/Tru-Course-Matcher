@@ -29,7 +29,7 @@ export const Appbar = () => {
             <div style={{ marginLeft: 10, cursor: "pointer" }} onClick={() => {
                 navigate("/")
             }}>
-                <Typography variant={"h6"}>Coursera</Typography>
+                <Typography variant={"h6"}>Tru Course Matcher</Typography>
             </div>
 
             <div style={{ display: "flex" }}>
@@ -67,6 +67,7 @@ export const Appbar = () => {
                                 userEmail: null,
                                 isAdmin: false
                             })
+                            navigate("/login")
                         }}
                     >Logout</Button>
                 </div>

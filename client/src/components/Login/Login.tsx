@@ -24,7 +24,8 @@ const Login = () => {
                 localStorage.setItem("Token", token);
                 setUser({
                     isLoading: false,
-                    userEmail: email
+                    userEmail: email,
+                    isAdmin: email == "thimayarohit@gmail.com"
                 })
                 navigate("/");
             })

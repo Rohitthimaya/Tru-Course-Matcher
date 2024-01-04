@@ -30,7 +30,8 @@ export const Signup = () => {
 
             setUser({
                 isLoading: false,
-                userEmail: email
+                userEmail: email,
+                isAdmin: email == "thimayarohit@gmail.com"
             })
 
             // Reset form fields

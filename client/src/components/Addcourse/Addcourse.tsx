@@ -6,11 +6,19 @@ import axios from "axios";
 import { useRecoilValue } from "recoil";
 import { isAdminState } from "../../store/selectors/isAdmin";
 
+
 export const Addcourse = () => {
     const [courseName, setCourseName] = useState("");
     const [courseNum, setCourseNum] = useState("");
     const [courseCrn, setCourseCrn] = useState("");
     const isAdmin = useRecoilValue(isAdminState);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(!isAdmin){
+            return(navigate("/login"))
+        }
+    }, [isAdmin])
 
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
@@ -37,13 +45,9 @@ export const Addcourse = () => {
         setCourseCrn("")
     };
 
-    if(!isAdmin){
-        return <h1>Only For Admins</h1>
-    }
-
-    return (
-        
-        <div>
+    if(isAdmin){
+        return (
+            <div>
             {/* Add Course Form */}
             <Grid container style={{ padding: "5vw" }}>
                 <Grid item xs={12} md={6} lg={6}>
@@ -89,5 +93,6 @@ export const Addcourse = () => {
                 </Grid>
             </Grid>
         </div>
-    );
+        )
+    }
 };
