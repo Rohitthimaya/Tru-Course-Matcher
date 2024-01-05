@@ -10,6 +10,7 @@ import Login from "./components/Login/Login";
 import { Appbar } from "./components/Appbar/Appbar"
 import { Courses } from "./components/Courses/Courses";
 import { Addcourse } from "./components/Addcourse/Addcourse";
+import { AddCourseUser } from "./components/AddCourseUser/AddCourseUser";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/matches" element={<Matches />} />
           <Route path="/courses" element={<Courses />} />
+          <Route path="/selectcourse" element={<AddCourseUser/>}/>
           <Route path="/addcourse" element={<Addcourse />} />
         </Routes>
       </Router>

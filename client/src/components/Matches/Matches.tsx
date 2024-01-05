@@ -8,9 +8,7 @@ export const Matches = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if(!userEmail){
-			return navigate("/login");
-		}
+        // I will get matches...
 	}, [])
 
     if(userEmail){

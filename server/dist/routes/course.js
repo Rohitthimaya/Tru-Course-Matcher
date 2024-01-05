@@ -99,4 +99,8 @@ router.get('/matched-courses', index_1.authenticateJwt, (req, res) => __awaiter(
         res.status(500).json({ error: 'Internal server error' });
     }
 }));
+router.get("/courses", index_1.authenticateJwt, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const courses = yield db_1.Course.find({});
+    return res.json({ courses: courses });
+}));
 exports.default = router;

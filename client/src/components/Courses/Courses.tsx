@@ -18,7 +18,7 @@ import { userState } from "../../store/atoms/user";
 import { isUserLoading } from "../../store/selectors/isUserLoading";
 
 // Define the type for the course
-interface Course {
+export interface Course {
   _id: string;
   courseName: string;
   courseNum: number;
@@ -53,8 +53,6 @@ export const Courses = () => {
             isLoading: false
           }))
         })
-    }else{
-      return( navigate("/login"));
     }
   }, []);
 
@@ -68,7 +66,7 @@ export const Courses = () => {
     console.log("Navigate to add new course page");
   };
 
-  if (userEmail) {
+  if (userEmail && isUserLoading) {
     return (
       <Box textAlign="center">
         <TableContainer component={Paper} style={{ marginTop: "20px" }}>
@@ -111,6 +109,8 @@ export const Courses = () => {
         </Button>
       </Box>
     );
+  }else{
+    return(<>{navigate("/login")}</>)
   }
 };
 

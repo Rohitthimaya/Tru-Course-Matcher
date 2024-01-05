@@ -105,4 +105,8 @@ router.get('/matched-courses', authenticateJwt, async (req, res) => {
     }
 });
 
+router.get("/courses", authenticateJwt, async (req, res) => {
+    const courses = await Course.find({});
+    return res.json({ courses: courses});
+})
 export default router;
