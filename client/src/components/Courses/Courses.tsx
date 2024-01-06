@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import { userState } from "../../store/atoms/user";
 import { isUserLoading } from "../../store/selectors/isUserLoading";
+import { Loading } from "../Loading/Loading";
 
 // Define the type for the course
 export interface Course {
@@ -31,6 +32,7 @@ export const Courses = () => {
   const navigate = useNavigate();
   const [myCourses, setMyCourses] = useState<Course[]>([]);
   const setUser = useSetRecoilState(userState);
+  const isLoading = useRecoilValue(isUserLoading);
 
   useEffect(() => {
     if(userEmail) {
@@ -54,7 +56,7 @@ export const Courses = () => {
           }))
         })
     }
-  }, []);
+  }, [Courses]);
 
   const handleDelete = (courseId: string) => {
     // Implement your delete logic here
@@ -63,10 +65,14 @@ export const Courses = () => {
 
   const handleAddNewCourse = () => {
     // Implement your logic to navigate to the add new course page
-    console.log("Navigate to add new course page");
+    return(<>{navigate("/selectcourse")}</>)
   };
 
-  if (userEmail && isUserLoading) {
+  if(isLoading){
+    return(<><Loading /></>)
+  }
+
+  if (userEmail) {
     return (
       <Box textAlign="center">
         <TableContainer component={Paper} style={{ marginTop: "20px" }}>

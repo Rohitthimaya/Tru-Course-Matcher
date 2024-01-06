@@ -7,16 +7,17 @@ import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import { userState } from "../../store/atoms/user";
 import { isAdminState } from "../../store/selectors/isAdmin";
+import { Loading } from "../Loading/Loading";
 
 export const Appbar = () => {
     const userEmail = useRecoilValue(userEmailState);
-    const userLoading = useRecoilValue(isUserLoading);
+    const isLoading = useRecoilValue(isUserLoading);
     const isAdmin = useRecoilValue(isAdminState);
     const navigate = useNavigate();
     const setUser = useSetRecoilState(userState);
 
-    if (userLoading) {
-        return <>Loading....</>
+    if(isLoading){
+        return(<><Loading /></>)
     }
 
     if (userEmail) {

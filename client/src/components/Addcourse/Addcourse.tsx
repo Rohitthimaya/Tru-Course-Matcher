@@ -5,6 +5,8 @@ import { Button, Grid, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import { useRecoilValue } from "recoil";
 import { isAdminState } from "../../store/selectors/isAdmin";
+import { isUserLoading } from "../../store/selectors/isUserLoading";
+import { Loading } from "../Loading/Loading";
 
 
 export const Addcourse = () => {
@@ -12,13 +14,16 @@ export const Addcourse = () => {
     const [courseNum, setCourseNum] = useState("");
     const [courseCrn, setCourseCrn] = useState("");
     const isAdmin = useRecoilValue(isAdminState);
+    const isLoading = useRecoilValue(isUserLoading);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if(!isAdmin){
-            return(navigate("/login"))
-        }
-    }, [isAdmin])
+    if(isLoading){
+        return(<><Loading /></>)
+    }
+
+    if(!isAdmin){
+        return(<>{navigate("/login")}</>)
+    }
 
     const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
