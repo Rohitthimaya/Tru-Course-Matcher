@@ -20,7 +20,7 @@ import { Loading } from "../Loading/Loading";
 
 export const AddCourseUser = () => {
     const [courses, setCourses] = useState<Course[]>([]);
-    const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+    // const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
     const [filterText, setFilterText] = useState<string>("");
     const setUser = useSetRecoilState(userState);
     const userEmail = useRecoilValue(userEmailState);
@@ -58,6 +58,21 @@ export const AddCourseUser = () => {
     const handleAddCourse = (course: Course) => {
         // Add your logic for handling the addition of the course
         console.log(`Added course: ${course.courseName}`);
+        axios.post("http://localhost:3000/courses/course", {
+            courseName: course.courseName,
+            courseNum: course.courseNum,
+            courseCrn: course.courseCrn
+        },{
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("Token")
+            }
+        }).then((response) => {
+            const data = response.data;
+            alert(data.message)
+            return
+        }).catch((err) => {
+            console.log(err);
+        })
     };
 
     if(isLoading){
@@ -106,12 +121,6 @@ export const AddCourseUser = () => {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                {selectedCourse && (
-                    <div>
-                        <p>Selected Course: {selectedCourse.courseName} - {selectedCourse.courseNum} - {selectedCourse.courseCrn}</p>
-                        {/* Add button and other functionality here */}
-                    </div>
-                )}
             </div>
         );
     }else{
@@ -120,3 +129,11 @@ export const AddCourseUser = () => {
 
 
 };
+
+
+// {selectedCourse && (
+//     <div>
+//         <p>Selected Course: {selectedCourse.courseName} - {selectedCourse.courseNum} - {selectedCourse.courseCrn}</p>
+//         {/* Add button and other functionality here */}
+//     </div>
+// )}
