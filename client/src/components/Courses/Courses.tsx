@@ -60,7 +60,18 @@ export const Courses = () => {
 
   const handleDelete = (courseId: string) => {
     // Implement your delete logic here
-    console.log(`Delete course with ID: ${courseId}`);
+    axios.delete(`http://localhost:3000/courses/course/${courseId}`, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("Token"),
+      }
+    }).then((response) => {
+      const data = response.data;
+      console.log(data.message);
+    }).catch((err) => {
+      console.log(err)
+    })
+
+    // console.log(`Delete course with ID: ${courseId}`);
   };
 
   const handleAddNewCourse = () => {

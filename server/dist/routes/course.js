@@ -99,8 +99,21 @@ router.get('/matched-courses', index_1.authenticateJwt, (req, res) => __awaiter(
         res.status(500).json({ error: 'Internal server error' });
     }
 }));
+// Get all courses
 router.get("/courses", index_1.authenticateJwt, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const courses = yield db_1.Course.find({});
     return res.json({ courses: courses });
+}));
+// Delete course for users
+router.delete("/course/:id", index_1.authenticateJwt, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const courseId = req.params.id;
+    const studentId = req.headers.id;
+    const student = yield db_1.User.findById(studentId);
+    console.log("Student Courses: " + (student === null || student === void 0 ? void 0 : student.courses));
+    if (student === null || student === void 0 ? void 0 : student.courses) {
+        student.courses = student.courses.filter(course => course.toString() !== courseId);
+        yield student.save();
+    }
+    return res.status(200).json({ message: `Course with id ${courseId} deleted! ${student === null || student === void 0 ? void 0 : student.courses}` });
 }));
 exports.default = router;

@@ -105,8 +105,27 @@ router.get('/matched-courses', authenticateJwt, async (req, res) => {
     }
 });
 
+// Get all courses
 router.get("/courses", authenticateJwt, async (req, res) => {
     const courses = await Course.find({});
-    return res.json({ courses: courses});
+    return res.json({ courses: courses });
 })
+
+// Delete course for users
+router.delete("/course/:id", authenticateJwt, async (req, res) => {
+    const courseId = req.params.id;
+    const studentId = req.headers.id;
+    const student = await User.findById(studentId)
+
+    console.log("Student Courses: " + student?.courses);
+
+    if (student?.courses) {
+        student.courses = student.courses.filter(course => course.toString() !== courseId);
+        await student.save();
+    }
+
+    return res.status(200).json({ message: `Course with id ${courseId} deleted! ${student?.courses}` });
+});
+
+
 export default router;
