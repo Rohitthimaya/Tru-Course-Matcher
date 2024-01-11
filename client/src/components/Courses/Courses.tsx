@@ -30,34 +30,33 @@ export interface Course {
   __v: number;
 }
 
-const fetchCourses = (  setCourses: React.Dispatch<React.SetStateAction<any>>,
-  setUser: React.Dispatch<React.SetStateAction<any>>) => {
-  
-  axios
-    .get("http://localhost:3000/courses/my-courses", {
+const fetchCourses = async (
+  setCourses: React.Dispatch<React.SetStateAction<any>>,
+  setUser: React.Dispatch<React.SetStateAction<any>>
+) => {
+  try {
+    const response = await axios.get("http://localhost:3000/courses/my-courses", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("Token"),
       },
-    })
-    .then((response) => {
-      const data = response.data;
-      const courses: Course[] = data.courses;
-      setCourses({ isLoading: false, courses: courses });
-      console.log(courses);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      setUser((prevUser: any) => ({
-        ...prevUser,
-        isLoading: false,
-      }));
-      setCourses((prevCourses: any) => ({
-        ...prevCourses,
-        isLoading: false,
-      }));
     });
+
+    const data = response.data;
+    const courses: Course[] = data.courses;
+    setCourses({ isLoading: false, courses: courses });
+    console.log(courses);
+  } catch (err) {
+    console.log(err);
+  } finally {
+    setUser((prevUser: any) => ({
+      ...prevUser,
+      isLoading: false,
+    }));
+    setCourses((prevCourses: any) => ({
+      ...prevCourses,
+      isLoading: false,
+    }));
+  }
 };
 
 export const Courses = () => {
@@ -70,10 +69,24 @@ export const Courses = () => {
   const courses = useRecoilValue(coursesState);
 
   useEffect(() => {
-    if (localStorage.getItem("Token") && userEmail) {
-      fetchCourses(setCourses, setUser);
-    }
-  }, [userEmail, setCourses, setUser]);
+    const fetchData = async () => {
+      if (localStorage.getItem("Token") && userEmail) {
+        try {
+          await fetchCourses(setCourses, setUser);
+        } catch (error) {
+          console.error("Error fetching courses:", error);
+        }
+      } else {
+        navigate("/login");
+      }
+    };
+
+    fetchData();
+  }, [userEmail, setCourses, setUser, navigate]);
+
+  if (!userEmail) {
+    return null;
+  }
 
   if (isLoading || isCourseLoading) {
     return <Loading />;
@@ -87,7 +100,7 @@ export const Courses = () => {
         },
       })
       .then(() => {
-        fetchCourses(setCourses, setUser); // Fetch courses after deleting
+        fetchCourses(setCourses, setUser);
       })
       .catch((err) => {
         console.log(err);
@@ -95,7 +108,7 @@ export const Courses = () => {
   };
 
   const handleAddNewCourse = () => {
-    return <>{navigate("/selectcourse")}</>;
+    navigate("/selectcourse");
   };
 
   return (
