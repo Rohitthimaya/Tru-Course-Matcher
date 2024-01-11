@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { Course } from "../Courses/Courses";
 import { isUserLoading } from "../../store/selectors/isUserLoading";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { userState } from "../../store/atoms/user";
 import { userEmailState } from "../../store/selectors/userEmail";
 import TextField from '@mui/material/TextField';
@@ -16,10 +16,12 @@ import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
 import { Navigate, useNavigate } from "react-router-dom";
 import { Loading } from "../Loading/Loading";
+import { courseState } from "../../store/atoms/courses";
 
 
 export const AddCourseUser = () => {
-    const [courses, setCourses] = useState<Course[]>([]);
+    // const [courses, setCourses] = useState<Course[]>([]);
+    const [courses, setCourses] = useRecoilState(courseState);
     // const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
     const [filterText, setFilterText] = useState<string>("");
     const setUser = useSetRecoilState(userState);
@@ -35,7 +37,10 @@ export const AddCourseUser = () => {
                 },
             }).then((res) => {
                 const data = res.data;
-                setCourses(data.courses);
+                setCourses({
+                    isLoading: false,
+                    courses: data.courses
+                });
             }).catch((err) => {
                 console.log(err);
             }).finally(() => {
@@ -48,7 +53,7 @@ export const AddCourseUser = () => {
     }, [userEmail, setUser]);
 
     const filterOptions = (inputValue: string) => {
-        return courses.filter(course =>
+        return courses && courses.courses?.filter(course =>
             course.courseName.toLowerCase().includes(inputValue.toLowerCase()) ||
             course.courseNum.toString().includes(inputValue) ||
             course.courseCrn.toString().includes(inputValue)
@@ -102,7 +107,7 @@ export const AddCourseUser = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {filterOptions(filterText).map(course => (
+                            {filterOptions(filterText)?.map(course => (
                                 <TableRow key={course._id}>
                                     <TableCell>{course.courseName}</TableCell>
                                     <TableCell>{course.courseNum}</TableCell>

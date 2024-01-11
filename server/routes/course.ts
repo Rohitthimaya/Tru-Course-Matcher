@@ -123,8 +123,7 @@ router.delete("/course/:id", authenticateJwt, async (req, res) => {
         student.courses = student.courses.filter(course => course.toString() !== courseId);
         await student.save();
     }
-
-    return res.status(200).json({ message: `Course with id ${courseId} deleted! ${student?.courses}` });
+    return res.status(200).json({ message: `Course with id ${courseId} deleted! ${student?.courses}`, courses: student?.courses});
 });
 
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { userEmailState } from "../../store/selectors/userEmail";
+import { coursesState } from "../../store/selectors/userCourses";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
@@ -16,7 +17,9 @@ import {
 } from "@mui/material";
 import { userState } from "../../store/atoms/user";
 import { isUserLoading } from "../../store/selectors/isUserLoading";
+import {isCourseLoadingState} from "../../store/selectors/isCourseLoading";
 import { Loading } from "../Loading/Loading";
+import { courseState } from "../../store/atoms/courses";
 
 // Define the type for the course
 export interface Course {
@@ -30,9 +33,12 @@ export interface Course {
 export const Courses = () => {
   const userEmail = useRecoilValue(userEmailState);
   const navigate = useNavigate();
-  const [myCourses, setMyCourses] = useState<Course[]>([]);
+  const setCourses = useSetRecoilState(courseState);
+  const courses = useRecoilValue(coursesState);
   const setUser = useSetRecoilState(userState);
   const isLoading = useRecoilValue(isUserLoading);
+  const isCourseLoading = useRecoilValue(isCourseLoadingState)
+
 
   useEffect(() => {
     if(userEmail) {
@@ -45,18 +51,29 @@ export const Courses = () => {
         .then((response) => {
           const data = response.data;
           const courses: Course[] = data.courses;
-          setMyCourses(courses);
+          setCourses({isLoading: false,courses:courses});
+          console.log(courses);
         })
         .catch((err) => {
           console.log(err);
         }).finally(() => {
+
           setUser((prevUser) => ({
             ...prevUser,
             isLoading: false
           }))
+
         })
     }
   }, [Courses]);
+
+  if(isLoading){
+    return(<><Loading /></>)
+  }
+
+  if(isCourseLoading){
+    return(<><Loading /></>)
+  }
 
   const handleDelete = (courseId: string) => {
     // Implement your delete logic here
@@ -65,13 +82,25 @@ export const Courses = () => {
         Authorization: "Bearer " + localStorage.getItem("Token"),
       }
     }).then((response) => {
-      const data = response.data;
-      console.log(data.message);
+      axios
+        .get("http://localhost:3000/courses/my-courses", {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("Token"),
+          },
+        })
+        .then((response) => {
+          const data = response.data;
+          const courses: Course[] = data.courses;
+          console.log(courses);
+          setCourses({isLoading: false,courses:courses});
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+      // setCourses({isLoading: false, courses: courses});
     }).catch((err) => {
       console.log(err)
     })
-
-    // console.log(`Delete course with ID: ${courseId}`);
   };
 
   const handleAddNewCourse = () => {
@@ -79,17 +108,14 @@ export const Courses = () => {
     return(<>{navigate("/selectcourse")}</>)
   };
 
-  if(isLoading){
-    return(<><Loading /></>)
-  }
-
   if (userEmail) {
+    console.log("Courses: " + courses);
     return (
       <Box textAlign="center">
         <TableContainer component={Paper} style={{ marginTop: "20px" }}>
           <Table>
             <TableHead>
-              <TableRow>
+              <TableRow >
                 <TableCell>Course Name</TableCell>
                 <TableCell>Course Number</TableCell>
                 <TableCell>Course CRN</TableCell>
@@ -97,7 +123,7 @@ export const Courses = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {myCourses.map((course) => (
+              {courses && courses.map((course) => (
                 <TableRow key={course._id}>
                   <TableCell>{course.courseName}</TableCell>
                   <TableCell>{course.courseNum}</TableCell>

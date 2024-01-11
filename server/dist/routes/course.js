@@ -114,6 +114,6 @@ router.delete("/course/:id", index_1.authenticateJwt, (req, res) => __awaiter(vo
         student.courses = student.courses.filter(course => course.toString() !== courseId);
         yield student.save();
     }
-    return res.status(200).json({ message: `Course with id ${courseId} deleted! ${student === null || student === void 0 ? void 0 : student.courses}` });
+    return res.status(200).json({ message: `Course with id ${courseId} deleted! ${student === null || student === void 0 ? void 0 : student.courses}`, courses: student === null || student === void 0 ? void 0 : student.courses });
 }));
 exports.default = router;
