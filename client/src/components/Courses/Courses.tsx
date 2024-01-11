@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import React, { useEffect } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { userEmailState } from "../../store/selectors/userEmail";
 import { coursesState } from "../../store/selectors/userCourses";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import { userState } from "../../store/atoms/user";
 import { isUserLoading } from "../../store/selectors/isUserLoading";
-import {isCourseLoadingState} from "../../store/selectors/isCourseLoading";
+import { isCourseLoadingState } from "../../store/selectors/isCourseLoading";
 import { Loading } from "../Loading/Loading";
 import { courseState } from "../../store/atoms/courses";
 
@@ -30,100 +30,89 @@ export interface Course {
   __v: number;
 }
 
+const fetchCourses = (  setCourses: React.Dispatch<React.SetStateAction<any>>,
+  setUser: React.Dispatch<React.SetStateAction<any>>) => {
+  
+  axios
+    .get("http://localhost:3000/courses/my-courses", {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("Token"),
+      },
+    })
+    .then((response) => {
+      const data = response.data;
+      const courses: Course[] = data.courses;
+      setCourses({ isLoading: false, courses: courses });
+      console.log(courses);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      setUser((prevUser: any) => ({
+        ...prevUser,
+        isLoading: false,
+      }));
+      setCourses((prevCourses: any) => ({
+        ...prevCourses,
+        isLoading: false,
+      }));
+    });
+};
+
 export const Courses = () => {
   const userEmail = useRecoilValue(userEmailState);
   const navigate = useNavigate();
   const setCourses = useSetRecoilState(courseState);
-  const courses = useRecoilValue(coursesState);
   const setUser = useSetRecoilState(userState);
   const isLoading = useRecoilValue(isUserLoading);
-  const isCourseLoading = useRecoilValue(isCourseLoadingState)
-
+  const isCourseLoading = useRecoilValue(isCourseLoadingState);
+  const courses = useRecoilValue(coursesState);
 
   useEffect(() => {
-    if(userEmail) {
-      axios
-        .get("http://localhost:3000/courses/my-courses", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("Token"),
-          },
-        })
-        .then((response) => {
-          const data = response.data;
-          const courses: Course[] = data.courses;
-          setCourses({isLoading: false,courses:courses});
-          console.log(courses);
-        })
-        .catch((err) => {
-          console.log(err);
-        }).finally(() => {
-
-          setUser((prevUser) => ({
-            ...prevUser,
-            isLoading: false
-          }))
-
-        })
+    if (localStorage.getItem("Token") && userEmail) {
+      fetchCourses(setCourses, setUser);
     }
-  }, [Courses]);
+  }, [userEmail, setCourses, setUser]);
 
-  if(isLoading){
-    return(<><Loading /></>)
-  }
-
-  if(isCourseLoading){
-    return(<><Loading /></>)
+  if (isLoading || isCourseLoading) {
+    return <Loading />;
   }
 
   const handleDelete = (courseId: string) => {
-    // Implement your delete logic here
-    axios.delete(`http://localhost:3000/courses/course/${courseId}`, {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("Token"),
-      }
-    }).then((response) => {
-      axios
-        .get("http://localhost:3000/courses/my-courses", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("Token"),
-          },
-        })
-        .then((response) => {
-          const data = response.data;
-          const courses: Course[] = data.courses;
-          console.log(courses);
-          setCourses({isLoading: false,courses:courses});
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-      // setCourses({isLoading: false, courses: courses});
-    }).catch((err) => {
-      console.log(err)
-    })
+    axios
+      .delete(`http://localhost:3000/courses/course/${courseId}`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("Token"),
+        },
+      })
+      .then(() => {
+        fetchCourses(setCourses, setUser); // Fetch courses after deleting
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleAddNewCourse = () => {
-    // Implement your logic to navigate to the add new course page
-    return(<>{navigate("/selectcourse")}</>)
+    return <>{navigate("/selectcourse")}</>;
   };
 
-  if (userEmail) {
-    console.log("Courses: " + courses);
-    return (
-      <Box textAlign="center">
-        <TableContainer component={Paper} style={{ marginTop: "20px" }}>
-          <Table>
-            <TableHead>
-              <TableRow >
-                <TableCell>Course Name</TableCell>
-                <TableCell>Course Number</TableCell>
-                <TableCell>Course CRN</TableCell>
-                <TableCell>Action</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {courses && courses.map((course) => (
+  return (
+    <Box textAlign="center">
+      <TableContainer component={Paper} style={{ marginTop: "20px" }}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Course Name</TableCell>
+              <TableCell>Course Number</TableCell>
+              <TableCell>Course CRN</TableCell>
+              <TableCell>Action</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {courses &&
+              courses.map((course) => (
                 <TableRow key={course._id}>
                   <TableCell>{course.courseName}</TableCell>
                   <TableCell>{course.courseNum}</TableCell>
@@ -139,21 +128,17 @@ export const Courses = () => {
                   </TableCell>
                 </TableRow>
               ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <Button
-          variant="contained"
-          color="secondary"
-          style={{ margin: "20px" }}
-          onClick={handleAddNewCourse}
-        >
-          Add New Course
-        </Button>
-      </Box>
-    );
-  }else{
-    return(<>{navigate("/login")}</>)
-  }
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Button
+        variant="contained"
+        color="secondary"
+        style={{ margin: "20px" }}
+        onClick={handleAddNewCourse}
+      >
+        Add New Course
+      </Button>
+    </Box>
+  );
 };
-
