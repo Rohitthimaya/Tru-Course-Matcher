@@ -21,7 +21,6 @@ import { isCourseLoadingState } from "../../store/selectors/isCourseLoading";
 import { Loading } from "../Loading/Loading";
 import { courseState } from "../../store/atoms/courses";
 
-// Define the type for the course
 export interface Course {
   _id: string;
   courseName: string;
@@ -32,19 +31,19 @@ export interface Course {
 
 const fetchCourses = async (
   setCourses: React.Dispatch<React.SetStateAction<any>>,
-  setUser: React.Dispatch<React.SetStateAction<any>>
+  setUser: React.Dispatch<React.SetStateAction<any>>,
+  token: string
 ) => {
   try {
     const response = await axios.get("http://localhost:3000/courses/my-courses", {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("Token"),
+        Authorization: "Bearer " + token,
       },
     });
 
     const data = response.data;
     const courses: Course[] = data.courses;
     setCourses({ isLoading: false, courses: courses });
-    console.log(courses);
   } catch (err) {
     console.log(err);
   } finally {
@@ -69,15 +68,15 @@ export const Courses = () => {
   const courses = useRecoilValue(coursesState);
 
   useEffect(() => {
+    const token = localStorage.getItem("Token");
+
     const fetchData = async () => {
-      if (localStorage.getItem("Token") && userEmail) {
+      if (userEmail && token) {
         try {
-          await fetchCourses(setCourses, setUser);
+          await fetchCourses(setCourses, setUser, token);
         } catch (error) {
           console.error("Error fetching courses:", error);
         }
-      } else {
-        navigate("/login");
       }
     };
 
@@ -85,7 +84,7 @@ export const Courses = () => {
   }, [userEmail, setCourses, setUser, navigate]);
 
   if (!userEmail) {
-    return null;
+    return(<>{navigate("/login")}</>)
   }
 
   if (isLoading || isCourseLoading) {
@@ -93,18 +92,21 @@ export const Courses = () => {
   }
 
   const handleDelete = (courseId: string) => {
-    axios
-      .delete(`http://localhost:3000/courses/course/${courseId}`, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("Token"),
-        },
-      })
-      .then(() => {
-        fetchCourses(setCourses, setUser);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const token = localStorage.getItem("Token");
+    if (token) {
+      axios
+        .delete(`http://localhost:3000/courses/course/${courseId}`, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        .then(() => {
+          fetchCourses(setCourses, setUser, token);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   const handleAddNewCourse = () => {
@@ -154,4 +156,4 @@ export const Courses = () => {
       </Button>
     </Box>
   );
-};
+}
