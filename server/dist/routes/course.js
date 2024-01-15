@@ -86,13 +86,21 @@ router.get('/matched-courses', index_1.authenticateJwt, (req, res) => __awaiter(
             _id: { $ne: studentId }, // Exclude the current user
             courses: { $in: student.courses }, // At least one common course
         });
-        const matchedStudentsDetails = matchedStudents.map(matchedStudent => ({
-            _id: matchedStudent._id,
-            username: matchedStudent.email,
-        }));
-        // Find and send the details of matched courses
-        const matchedCourses = yield db_1.Course.find({ _id: { $in: student.courses } });
-        res.status(200).json({ matchedCourses, matchedStudents: matchedStudentsDetails });
+        const result = [];
+        // Iterate through matched students to organize data
+        for (const matchedStudent of matchedStudents) {
+            const matchedCourses = yield db_1.Course.find({
+                _id: { $in: matchedStudent.courses },
+            });
+            const userMatchedData = {
+                userId: matchedStudent._id,
+                user: matchedStudent.firstName + " " + matchedStudent.lastName,
+                email: matchedStudent.email,
+                courses: matchedCourses.map((course) => course), // Assuming there's a "name" property in the Course model
+            };
+            result.push(userMatchedData);
+        }
+        res.status(200).json({ matchedData: result });
     }
     catch (error) {
         console.error(error);

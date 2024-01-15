@@ -90,20 +90,31 @@ router.get('/matched-courses', authenticateJwt, async (req, res) => {
             courses: { $in: student.courses }, // At least one common course
         });
 
-        const matchedStudentsDetails = matchedStudents.map(matchedStudent => ({
-            _id: matchedStudent._id,
-            username: matchedStudent.email,
-        }));
+        const result = [];
 
-        // Find and send the details of matched courses
-        const matchedCourses = await Course.find({ _id: { $in: student.courses } });
+        // Iterate through matched students to organize data
+        for (const matchedStudent of matchedStudents) {
+            const matchedCourses = await Course.find({
+                _id: { $in: matchedStudent.courses },
+            });
 
-        res.status(200).json({ matchedCourses, matchedStudents: matchedStudentsDetails });
+            const userMatchedData = {
+                userId: matchedStudent._id,
+                user: matchedStudent.firstName + " " + matchedStudent.lastName,
+                email: matchedStudent.email,
+                courses: matchedCourses.map((course) => course), // Assuming there's a "name" property in the Course model
+            };
+
+            result.push(userMatchedData);
+        }
+
+        res.status(200).json({ matchedData: result });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
 
 // Get all courses
 router.get("/courses", authenticateJwt, async (req, res) => {

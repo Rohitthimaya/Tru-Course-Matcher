@@ -134,11 +134,3 @@ export const AddCourseUser = () => {
 
 
 };
-
-
-// {selectedCourse && (
-//     <div>
-//         <p>Selected Course: {selectedCourse.courseName} - {selectedCourse.courseNum} - {selectedCourse.courseCrn}</p>
-//         {/* Add button and other functionality here */}
-//     </div>
-// )}
