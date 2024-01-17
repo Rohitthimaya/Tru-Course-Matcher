@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
     email: String,
     password: String,
     SocialHandle: String,
+    tId: String,
     courses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }],
 });
 

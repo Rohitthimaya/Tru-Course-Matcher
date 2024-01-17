@@ -11,6 +11,7 @@ const userSchema = new mongoose_1.default.Schema({
     email: String,
     password: String,
     SocialHandle: String,
+    tId: String,
     courses: [{ type: mongoose_1.default.Schema.Types.ObjectId, ref: 'Course' }],
 });
 const courseSchema = new mongoose_1.default.Schema({

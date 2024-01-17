@@ -12,6 +12,7 @@ export const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [socialHandle, setSocialHandle] = useState("");
+    const [tId, setTruId] = useState("");
     const setUser = useSetRecoilState(userState);
     const navigate = useNavigate();
 
@@ -22,6 +23,7 @@ export const Signup = () => {
             lastName,
             email,
             password,
+            tId,
             socialHandle
         }).then((res) => {
             const data = res.data;
@@ -40,6 +42,7 @@ export const Signup = () => {
             setEmail("");
             setPassword("");
             setSocialHandle("");
+            setTruId("");
 
             navigate("/");
         }).catch((err) => {
@@ -101,6 +104,14 @@ export const Signup = () => {
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <TextField
+                        label="Tru Id"
+                        variant="outlined"
+                        fullWidth
+                        margin="normal"
+                        value={tId}
+                        onChange={(e) => setTruId(e.target.value)}
                     />
                     <TextField
                         label="Social Handle"

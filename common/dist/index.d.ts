@@ -15,18 +15,21 @@ export declare const signupUserInputSchema: z.ZodObject<{
     firstName: z.ZodString;
     lastName: z.ZodString;
     socialHandle: z.ZodString;
+    tId: z.ZodString;
 }, "strip", z.ZodTypeAny, {
     email: string;
     password: string;
     firstName: string;
     lastName: string;
     socialHandle: string;
+    tId: string;
 }, {
     email: string;
     password: string;
     firstName: string;
     lastName: string;
     socialHandle: string;
+    tId: string;
 }>;
 export type signUpParams = z.infer<typeof signupUserInputSchema>;
 export type loginParams = z.infer<typeof loginUserInputSchema>;

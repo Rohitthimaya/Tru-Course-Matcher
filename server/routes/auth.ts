@@ -8,18 +8,21 @@ const router = express.Router();
 
 router.post("/signup", async (req, res) => {
     const reqBody = signupUserInputSchema.safeParse(req.body);
+
     if (!reqBody.success) {
         return res.status(403).json({
             message: "Invalid Input!"
         })
     }
+    
     const email = reqBody.data.email;
     const password = reqBody.data.password;
     const firstName = reqBody.data.firstName;
     const lastName = reqBody.data.lastName;
+    const tId = reqBody.data.tId;
     const socialHandle = reqBody.data.socialHandle;
 
-    const user = await User.findOne({ email, password, firstName, lastName, socialHandle });
+    const user = await User.findOne({ email, password, firstName, lastName, socialHandle, tId });
 
     if (user) {
         return res.status(403).json({
@@ -27,7 +30,7 @@ router.post("/signup", async (req, res) => {
         })
     }
 
-    const newUser = new User({ email, password, firstName, lastName, socialHandle });
+    const newUser = new User({ email, password, firstName, lastName, socialHandle, tId });
     await newUser.save();
     const token = jwt.sign({ id: newUser._id }, SECRET, { expiresIn: "1h" });
     res.json({ message: "User Succesfully Created!", token });

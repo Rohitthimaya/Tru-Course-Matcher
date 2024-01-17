@@ -5,6 +5,7 @@ const passwordSchema = z.string().min(6).max(30);
 const firstNameSchema = z.string();
 const lastNameSchema = z.string();
 const socialHandleSchema = z.string();
+const tIdSchema = z.string();
 
 export const loginUserInputSchema = z.object({
     email: emailSchema,
@@ -16,7 +17,8 @@ export const signupUserInputSchema = z.object({
     password: passwordSchema ,
     firstName: firstNameSchema,
     lastName: lastNameSchema,
-    socialHandle: socialHandleSchema
+    socialHandle: socialHandleSchema,
+    tId: tIdSchema
 });
 
 

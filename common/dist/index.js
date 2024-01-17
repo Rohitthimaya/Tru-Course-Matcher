@@ -10,6 +10,7 @@ const passwordSchema = zod_1.default.string().min(6).max(30);
 const firstNameSchema = zod_1.default.string();
 const lastNameSchema = zod_1.default.string();
 const socialHandleSchema = zod_1.default.string();
+const tIdSchema = zod_1.default.string();
 exports.loginUserInputSchema = zod_1.default.object({
     email: emailSchema,
     password: passwordSchema
@@ -19,5 +20,6 @@ exports.signupUserInputSchema = zod_1.default.object({
     password: passwordSchema,
     firstName: firstNameSchema,
     lastName: lastNameSchema,
-    socialHandle: socialHandleSchema
+    socialHandle: socialHandleSchema,
+    tId: tIdSchema
 });

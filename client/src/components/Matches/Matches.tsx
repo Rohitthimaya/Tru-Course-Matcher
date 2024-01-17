@@ -22,6 +22,7 @@ interface MatchedUserData {
   userId: string;
   user: string;
   email: string;
+  tId: string;
   courses: {
     courseCrn: React.ReactNode;
     courseName: string;
@@ -87,6 +88,7 @@ export const Matches: React.FC = () => {
               <TableRow>
                 <TableCell>Student</TableCell>
                 <TableCell>Email</TableCell>
+                <TableCell>Tru ID</TableCell>
                 <TableCell>Matched Courses</TableCell>
               </TableRow>
             </TableHead>
@@ -95,6 +97,7 @@ export const Matches: React.FC = () => {
                 <TableRow key={user.userId}>
                   <TableCell>{user.user}</TableCell>
                   <TableCell>{user.email}</TableCell>
+                  <TableCell>{user.tId}</TableCell>
                   <TableCell>
                     <List>
                       {user.courses.map((course, index) => (

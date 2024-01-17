@@ -96,8 +96,10 @@ router.get('/matched-courses', index_1.authenticateJwt, (req, res) => __awaiter(
                 userId: matchedStudent._id,
                 user: matchedStudent.firstName + " " + matchedStudent.lastName,
                 email: matchedStudent.email,
+                tId: matchedStudent.tId,
                 courses: matchedCourses.map((course) => course), // Assuming there's a "name" property in the Course model
             };
+            console.log(userMatchedData);
             result.push(userMatchedData);
         }
         res.status(200).json({ matchedData: result });

@@ -30,6 +30,7 @@ export declare const User: mongoose.Model<{
     email?: string | null | undefined;
     password?: string | null | undefined;
     SocialHandle?: string | null | undefined;
+    tId?: string | null | undefined;
 }, {}, {}, {}, mongoose.Document<unknown, {}, {
     courses: mongoose.Types.ObjectId[];
     firstName?: string | null | undefined;
@@ -37,6 +38,7 @@ export declare const User: mongoose.Model<{
     email?: string | null | undefined;
     password?: string | null | undefined;
     SocialHandle?: string | null | undefined;
+    tId?: string | null | undefined;
 }> & {
     courses: mongoose.Types.ObjectId[];
     firstName?: string | null | undefined;
@@ -44,6 +46,7 @@ export declare const User: mongoose.Model<{
     email?: string | null | undefined;
     password?: string | null | undefined;
     SocialHandle?: string | null | undefined;
+    tId?: string | null | undefined;
 } & {
     _id: mongoose.Types.ObjectId;
 }, mongoose.Schema<any, mongoose.Model<any, any, any, any, any, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, {
@@ -53,6 +56,7 @@ export declare const User: mongoose.Model<{
     email?: string | null | undefined;
     password?: string | null | undefined;
     SocialHandle?: string | null | undefined;
+    tId?: string | null | undefined;
 }, mongoose.Document<unknown, {}, mongoose.FlatRecord<{
     courses: mongoose.Types.ObjectId[];
     firstName?: string | null | undefined;
@@ -60,6 +64,7 @@ export declare const User: mongoose.Model<{
     email?: string | null | undefined;
     password?: string | null | undefined;
     SocialHandle?: string | null | undefined;
+    tId?: string | null | undefined;
 }>> & mongoose.FlatRecord<{
     courses: mongoose.Types.ObjectId[];
     firstName?: string | null | undefined;
@@ -67,6 +72,7 @@ export declare const User: mongoose.Model<{
     email?: string | null | undefined;
     password?: string | null | undefined;
     SocialHandle?: string | null | undefined;
+    tId?: string | null | undefined;
 }> & {
     _id: mongoose.Types.ObjectId;
 }>>;

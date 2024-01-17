@@ -29,14 +29,15 @@ router.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function*
     const password = reqBody.data.password;
     const firstName = reqBody.data.firstName;
     const lastName = reqBody.data.lastName;
+    const tId = reqBody.data.tId;
     const socialHandle = reqBody.data.socialHandle;
-    const user = yield db_1.User.findOne({ email, password, firstName, lastName, socialHandle });
+    const user = yield db_1.User.findOne({ email, password, firstName, lastName, socialHandle, tId });
     if (user) {
         return res.status(403).json({
             message: "User Already Exist!"
         });
     }
-    const newUser = new db_1.User({ email, password, firstName, lastName, socialHandle });
+    const newUser = new db_1.User({ email, password, firstName, lastName, socialHandle, tId });
     yield newUser.save();
     const token = jsonwebtoken_1.default.sign({ id: newUser._id }, middleware_1.SECRET, { expiresIn: "1h" });
     res.json({ message: "User Succesfully Created!", token });
