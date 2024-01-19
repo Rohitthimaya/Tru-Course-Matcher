@@ -86,7 +86,6 @@ router.get('/matched-courses', index_1.authenticateJwt, (req, res) => __awaiter(
             _id: { $ne: studentId }, // Exclude the current user
             courses: { $in: student.courses }, // At least one common course
         });
-        console.log(matchedStudents);
         const result = [];
         // Iterate through matched students to organize data
         for (const matchedStudent of matchedStudents) {
@@ -94,12 +93,10 @@ router.get('/matched-courses', index_1.authenticateJwt, (req, res) => __awaiter(
             const commonCourseIds = student.courses.filter(courseId => 
             // console.log("Id: " + courseId._id)
             matchedStudent.courses.includes(courseId._id));
-            console.log(commonCourseIds);
             // Fetch the common courses using the common IDs
             const matchedCourses = yield db_1.Course.find({
                 _id: { $in: commonCourseIds },
             });
-            console.log(matchedCourses);
             const userMatchedData = {
                 userId: matchedStudent._id,
                 user: matchedStudent.firstName + " " + matchedStudent.lastName,

@@ -90,8 +90,6 @@ router.get('/matched-courses', authenticateJwt, async (req, res) => {
             courses: { $in: student.courses }, // At least one common course
         });
 
-        console.log(matchedStudents)
-
         const result = [];
 
         // Iterate through matched students to organize data
@@ -102,15 +100,10 @@ router.get('/matched-courses', authenticateJwt, async (req, res) => {
                 matchedStudent.courses.includes(courseId._id)
             );
 
-            console.log(commonCourseIds);
-
             // Fetch the common courses using the common IDs
             const matchedCourses = await Course.find({
                 _id: { $in: commonCourseIds },
             });
-
-            console.log(matchedCourses);
-
 
             const userMatchedData = {
                 userId: matchedStudent._id,

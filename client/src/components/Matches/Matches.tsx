@@ -75,7 +75,7 @@ export const Matches: React.FC = () => {
     return (
       <div style={{ margin: "20px" }}>
         <TextField
-          label="Filter by name or course CRN"
+          label="Enter student name or course CRN to filter"
           variant="outlined"
           fullWidth
           value={filter}
