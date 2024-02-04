@@ -1,6 +1,8 @@
 import express from "express";
 import { authenticateJwt } from "../middleware/index";
 import { User, Course } from "../db";
+const fs = require('fs');
+const path = require('path');
 
 const router = express.Router();
 
@@ -145,5 +147,21 @@ router.delete("/course/:id", authenticateJwt, async (req, res) => {
     return res.status(200).json({ message: `Course with id ${courseId} deleted! ${student?.courses}`, courses: student?.courses});
 });
 
+
+router.get('/read-file', (req, res) => {
+    const filePath = path.join("C:/Users/thima/Tru-Course-Matcher/server/routes/file.txt"); // Adjust the file name
+    console.log(filePath)
+    try {
+      if (fs.existsSync("C:/Users/thima/Tru-Course-Matcher/server/routes/file.txt")) {
+        const fileContent = fs.readFileSync(filePath, 'utf-8');
+        console.log(fileContent);
+        res.send(fileContent);
+      } else {
+        res.status(404).send({ error: 'File not found' });
+      }
+    } catch (error) {
+      res.status(500).send({ error: 'Error reading file' });
+    }
+  });
 
 export default router;

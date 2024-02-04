@@ -15,6 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const index_1 = require("../middleware/index");
 const db_1 = require("../db");
+const fs = require('fs');
+const path = require('path');
 const router = express_1.default.Router();
 // Add a new course
 router.post('/admin-add-course', index_1.authenticateJwt, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -130,4 +132,21 @@ router.delete("/course/:id", index_1.authenticateJwt, (req, res) => __awaiter(vo
     }
     return res.status(200).json({ message: `Course with id ${courseId} deleted! ${student === null || student === void 0 ? void 0 : student.courses}`, courses: student === null || student === void 0 ? void 0 : student.courses });
 }));
+router.get('/read-file', (req, res) => {
+    const filePath = path.join("C:/Users/thima/Tru-Course-Matcher/server/routes/file.txt"); // Adjust the file name
+    console.log(filePath);
+    try {
+        if (fs.existsSync("C:/Users/thima/Tru-Course-Matcher/server/routes/file.txt")) {
+            const fileContent = fs.readFileSync(filePath, 'utf-8');
+            console.log(fileContent);
+            res.send(fileContent);
+        }
+        else {
+            res.status(404).send({ error: 'File not found' });
+        }
+    }
+    catch (error) {
+        res.status(500).send({ error: 'Error reading file' });
+    }
+});
 exports.default = router;

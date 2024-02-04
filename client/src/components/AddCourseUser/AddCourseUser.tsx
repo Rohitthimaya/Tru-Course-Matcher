@@ -37,6 +37,7 @@ export const AddCourseUser = () => {
                 },
             }).then((res) => {
                 const data = res.data;
+                console.log(data)
                 setCourses({
                     isLoading: false,
                     courses: data.courses
@@ -54,11 +55,12 @@ export const AddCourseUser = () => {
 
     const filterOptions = (inputValue: string) => {
         return courses && courses.courses?.filter(course =>
-            course.courseName.toLowerCase().includes(inputValue.toLowerCase()) ||
-            course.courseNum.toString().includes(inputValue) ||
-            course.courseCrn.toString().includes(inputValue)
+            (course.courseName && course.courseName.toLowerCase().includes(inputValue.toLowerCase())) ||
+            (course.courseNum && course.courseNum.toString().includes(inputValue)) ||
+            (course.courseCrn && course.courseCrn.toString().includes(inputValue))
         );
     };
+    
 
     const handleAddCourse = (course: Course) => {
         // Add your logic for handling the addition of the course
