@@ -1,6 +1,7 @@
 import express from "express";
 import { authenticateJwt } from "../middleware/index";
-import { User, Course } from "../db";
+import { User, Course } from "../db"; 
+
 const fs = require('fs');
 const path = require('path');
 
