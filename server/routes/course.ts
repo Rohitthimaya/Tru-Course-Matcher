@@ -144,7 +144,7 @@ router.delete("/course/:id", authenticateJwt, async (req, res) => {
         student.courses = student.courses.filter(course => course.toString() !== courseId);
         await student.save();
     }
-    return res.status(200).json({ message: `Course with id ${courseId} deleted! ${student?.courses}`, courses: student?.courses});
+    return res.status(200).json({ message: `Course with id ${courseId} deleted! ${student?.courses}`, courses: student?.courses });
 });
 
 
@@ -152,16 +152,33 @@ router.get('/read-file', (req, res) => {
     const filePath = path.join("C:/Users/thima/Tru-Course-Matcher/server/routes/file.txt"); // Adjust the file name
     console.log(filePath)
     try {
-      if (fs.existsSync("C:/Users/thima/Tru-Course-Matcher/server/routes/file.txt")) {
-        const fileContent = fs.readFileSync(filePath, 'utf-8');
-        console.log(fileContent);
-        res.send(fileContent);
-      } else {
-        res.status(404).send({ error: 'File not found' });
-      }
+        if (fs.existsSync("C:/Users/thima/Tru-Course-Matcher/server/routes/file.txt")) {
+            // Read data from file
+            const fileContents: string = fs.readFileSync(filePath, 'utf8');
+
+            // Split file contents into lines
+            const lines: string[] = fileContents.split('\n');
+
+            // Initialize an array to store individual data rows
+            const individualDataList: string[][] = [];
+
+            // Iterate through each line
+            lines.forEach(line => {
+                // Split the line by "|" to get individual data elements
+                const individualData: string[] = line.split('|').map(item => item.trim());
+                // Push the individual data to the list
+                individualDataList.push(individualData);
+            });
+
+            console.log(individualDataList);
+            
+            res.status(200).send({courses: individualDataList});
+        } else {
+            res.status(404).send({ error: 'File not found' });
+        }
     } catch (error) {
-      res.status(500).send({ error: 'Error reading file' });
+        res.status(500).send({ error: 'Error reading file' });
     }
-  });
+});
 
 export default router;

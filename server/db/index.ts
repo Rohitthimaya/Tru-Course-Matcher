@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
 
 const courseSchema = new mongoose.Schema({
     courseName: String,
-    courseNum: Number,
+    courseNum: String,
     courseCrn: Number
 })
 

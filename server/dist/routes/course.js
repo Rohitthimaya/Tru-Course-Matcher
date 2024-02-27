@@ -137,9 +137,21 @@ router.get('/read-file', (req, res) => {
     console.log(filePath);
     try {
         if (fs.existsSync("C:/Users/thima/Tru-Course-Matcher/server/routes/file.txt")) {
-            const fileContent = fs.readFileSync(filePath, 'utf-8');
-            console.log(fileContent);
-            res.send(fileContent);
+            // Read data from file
+            const fileContents = fs.readFileSync(filePath, 'utf8');
+            // Split file contents into lines
+            const lines = fileContents.split('\n');
+            // Initialize an array to store individual data rows
+            const individualDataList = [];
+            // Iterate through each line
+            lines.forEach(line => {
+                // Split the line by "|" to get individual data elements
+                const individualData = line.split('|').map(item => item.trim());
+                // Push the individual data to the list
+                individualDataList.push(individualData);
+            });
+            console.log(individualDataList);
+            res.status(200).send({ courses: individualDataList });
         }
         else {
             res.status(404).send({ error: 'File not found' });

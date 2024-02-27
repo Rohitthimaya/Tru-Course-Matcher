@@ -15,16 +15,42 @@ export const Addcourse = () => {
     const isLoading = useRecoilValue(isUserLoading);
     const navigate = useNavigate();
 
-    const [fileContent, setFileContent] = useState('');
 
     const handleFileButtonClick = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/read-file', {
+            const response = await axios.get('http://localhost:3000/courses/read-file', {
                 headers: {
                     "Authorization": "Bearer " + localStorage.getItem("Token")
                 }
             });
-            setFileContent(response.data);
+            // console.log(response.data);
+            const courses = response.data["courses"];
+
+            for (let i = 0; i < courses.length; i++) {
+                let courseTempName = courses[i][3]
+                let courseTempNum = courses[i][2]
+                let courseTempCrn = courses[i][4]
+
+
+                axios.post("http://localhost:3000/courses/admin-add-course", {
+                    "courseName": courseTempName,
+                    "courseNum": courseTempNum,
+                    "courseCrn": courseTempCrn
+                },
+                    {
+                        headers: {
+                            "Authorization": "Bearer " + localStorage.getItem("Token")
+                        }
+                    }).then((response) => {
+                        const data = response.data;
+                        // alert("Course Added Successfully!");
+                        console.log(data);
+                    }).catch((err) => {
+                        console.log(err);
+                    });
+
+            }
+
         } catch (error) {
             console.error('Error reading file:', error);
         }
@@ -110,7 +136,7 @@ export const Addcourse = () => {
                             <button onClick={handleFileButtonClick}>Read File</button>
                             <div>
                                 <h3>File Content:</h3>
-                                <pre>{fileContent}</pre>
+                                {/* <pre>{fileContent}</pre> */}
                             </div>
                         </div>
                     </div>

@@ -78,29 +78,29 @@ export declare const User: mongoose.Model<{
 }>>;
 export declare const Course: mongoose.Model<{
     courseName?: string | null | undefined;
-    courseNum?: number | null | undefined;
+    courseNum?: string | null | undefined;
     courseCrn?: number | null | undefined;
 }, {}, {}, {}, mongoose.Document<unknown, {}, {
     courseName?: string | null | undefined;
-    courseNum?: number | null | undefined;
+    courseNum?: string | null | undefined;
     courseCrn?: number | null | undefined;
 }> & {
     courseName?: string | null | undefined;
-    courseNum?: number | null | undefined;
+    courseNum?: string | null | undefined;
     courseCrn?: number | null | undefined;
 } & {
     _id: mongoose.Types.ObjectId;
 }, mongoose.Schema<any, mongoose.Model<any, any, any, any, any, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, {
     courseName?: string | null | undefined;
-    courseNum?: number | null | undefined;
+    courseNum?: string | null | undefined;
     courseCrn?: number | null | undefined;
 }, mongoose.Document<unknown, {}, mongoose.FlatRecord<{
     courseName?: string | null | undefined;
-    courseNum?: number | null | undefined;
+    courseNum?: string | null | undefined;
     courseCrn?: number | null | undefined;
 }>> & mongoose.FlatRecord<{
     courseName?: string | null | undefined;
-    courseNum?: number | null | undefined;
+    courseNum?: string | null | undefined;
     courseCrn?: number | null | undefined;
 }> & {
     _id: mongoose.Types.ObjectId;

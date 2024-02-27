@@ -16,7 +16,7 @@ const userSchema = new mongoose_1.default.Schema({
 });
 const courseSchema = new mongoose_1.default.Schema({
     courseName: String,
-    courseNum: Number,
+    courseNum: String,
     courseCrn: Number
 });
 exports.User = mongoose_1.default.model('User', userSchema);

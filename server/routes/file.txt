@@ -1,50 +1,24 @@
-| COMP-Computing | 1020 | Introduction to Spreadsheets | 20448 |
-| COMP-Computing | 1030 | Introduction to Databases | 20449 |
-| COMP-Computing | 1030 | Introduction to Databases | 20450 |
-| COMP-Computing | 1080 | Introduction to Web Development | 20451 |
-| COMP-Computing | 1110 | Introduction to Computer Programming | 20452 |
-| COMP-Computing | 1110 S01 | Introduction to Computer Programming | 20453 |
-| COMP-Computing | 1130 | Computer Programming 1 | 20454 |
-| COMP-Computing | 1130 | Computer Programming 1 | 20455 |
-| COMP-Computing | 1130 L01 | Computer Programming 1 (Lab) | 20456 |
-| COMP-Computing | 1130 L02 | Computer Programming 1 (Lab) | 20457 |
-| COMP-Computing | 1130 S01 | Computer Programming 1 (Seminar) | 20458 |
-| COMP-Computing | 1130 S02 | Computer Programming 1 (Seminar) | 20459 |
-| COMP-Computing | 1230 | Computer Programming 2 | 20460 |
-| COMP-Computing | 1230 | Computer Programming 2 | 20461 |
-| COMP-Computing | 1230 | Computer Programming 2 | 22393 |
-| COMP-Computing | 1230 S01 | Computer Programming 2 (Seminar) | 20462 |
-| COMP-Computing | 1230 S02 | Computer Programming 2 (Seminar) | 20463 |
-| COMP-Computing | 1230 S03 | Computer Programming 2 (Seminar) | 22395 |
-| COMP-Computing | 1810 | Game Design and Development 1 | 20464 |
-| COMP-Computing | 1810 S01 | Game Design and Development 1 (Seminar) | 20465 |
-| COMP-Computing | 2130 | Introduction to Computer Systems | 20466 |
-| COMP-Computing | 2130 | Introduction to Computer Systems | 20467 |
-| COMP-Computing | 2130 S01 | Introduction to Computer Systems (Seminar) | 20468 |
-| COMP-Computing | 2130 S02 | Introduction to Computer Systems (Seminar) | 20469 |
-| COMP-Computing | 2160 | Mobile Application Development 1 | 20470 |
-| COMP-Computing | 2160 | Mobile Application Development 1 | 20471 |
-| COMP-Computing | 2160 S01 | Mobile Application Development 1 (Seminar) | 20472 |
-| COMP-Computing | 2160 S02 | Mobile Application Development 1 (Seminar) | 20473 |
-| COMP-Computing | 2210 | Programming Methods | 20474 |
-| COMP-Computing | 2210 S01 | Programming Methods (Seminar) | 20475 |
-| COMP-Computing | 2230 | Data Structure, Algorithm Analysis, and Program Design | 20476 |
-| COMP-Computing | 2230 S01 | Data Structure, Algorithm Analysis, and Program Design (Seminar) | 20477 |
-| COMP-Computing | 2680 | Web Site Design and Development | 20478 |
-| COMP-Computing | 2680 S01 | Web Site Design and Development (Seminar) | 20479 |
-| COMP-Computing | 2680 W1 | Web Site Design and Development | 21956 |
-| COMP-Computing | 2680 WS1 | Web Site Design and Development (Seminar) | 21957 |
-| COMP-Computing | 2920 | Software Architecture and Design | 20480 |
-| COMP-Computing | 2920 | Software Architecture and Design | 20481 |
-| COMP-Computing | 2920 S01 | Software Architecture and Design (Seminar) | 20482 |
-| COMP-Computing | 2920 S02 | Software Architecture and Design (Seminar) | 20483 |
-| COMP-Computing | 3050 | Algorithm Design and Analysis | 20484 |
-| COMP-Computing | 3050 S01 | Algorithm Design and Analysis (Seminar) | 20485 |
-| COMP-Computing | 3130 | Formal Languages, Automata and Computability | 20486 |
-| COMP-Computing | 3130 S01 | Formal Languages, Automata and Computability (Seminar) | 20487 |
-| COMP-Computing | 3260 | Computer Network Security | 20488 |
-| COMP-Computing | 3260 | Computer Network Security | 20489 |
-| COMP-Computing | 3270 | Computer Networks | 20490 |
-| COMP-Computing | 3270 | Computer Networks | 20491 |
-| COMP-Computing | 3270 S01 | Computer Networks (Seminar) | 20492 |
-| COMP-Computing | 3270 S02 | Computer Networks (Seminar) | 20493 |
+| COMP-Computing | 3410 | Operating Systems | 20494 |
+| COMP-Computing | 3410 | Operating Systems | 20495 |
+| COMP-Computing | 3410 S01 | Operating Systems | 20496 |
+| COMP-Computing | 3410 S02 | Operating Systems | 20497 |
+| COMP-Computing | 3450 | Human-Computer Interaction Design | 20498 |
+| COMP-Computing | 3450 S01 | Human-Computer Interaction Design | 20499 |
+| COMP-Computing | 3520 | Software Engineering | 20500 |
+| COMP-Computing | 3520 S01 | Software Engineering | 20501 |
+| COMP-Computing | 3540 | Advanced Web Design and Programming | 20502 |
+| COMP-Computing | 3540 S01 | Advanced Web Design and Programming | 20503 |
+| COMP-Computing | 3610 | Database Systems | 20504 |
+| COMP-Computing | 3610 | Database Systems | 20505 |
+| COMP-Computing | 3710 | Applied Artificial Intelligence | 20506 |
+| COMP-Computing | 3710 | Applied Artificial Intelligence | 20507 |
+| COMP-Computing | 3710 S01 | Applied Artificial Intelligence | 20508 |
+| COMP-Computing | 3710 S02 | Applied Artificial Intelligence | 20509 |
+| COMP-Computing | 4610 | Advanced Database Systems | 20511 |
+| COMP-Computing | 4620 | Web-based Information Systems | 20512 |
+| COMP-Computing | 4620 S01 | Web-based Information Systems | 20513 |
+| COMP-Computing | 4910 | Computing Science Project | 20514 |
+| COMP-Computing | 4980 | ST: Data Mining and Business Intelligence | 20515 |
+| COMP-Computing | 4980 | ST: Behavioral Biometrics | 20516 |
+| COMP-Computing | 4980 S01 | ST: Data Mining and Business Intelligence | 20518 |
+| COMP-Computing | 4980 S02 | ST: Behavioral Biometrics | 20519 |
