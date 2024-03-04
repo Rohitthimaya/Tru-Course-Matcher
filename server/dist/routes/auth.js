@@ -18,6 +18,9 @@ const db_1 = require("../db/");
 const common_1 = require("@thimayarohit/common");
 const middleware_1 = require("../middleware");
 const router = express_1.default.Router();
+const bcrypt = require('bcrypt');
+const saltRounds = 10; // Number of salt rounds for hashing
+// In the signup route
 router.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const reqBody = common_1.signupUserInputSchema.safeParse(req.body);
     if (!reqBody.success) {
@@ -25,37 +28,36 @@ router.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function*
             message: "Invalid Input!"
         });
     }
-    const email = reqBody.data.email;
-    const password = reqBody.data.password;
-    const firstName = reqBody.data.firstName;
-    const lastName = reqBody.data.lastName;
-    const tId = reqBody.data.tId;
-    const socialHandle = reqBody.data.socialHandle;
-    const user = yield db_1.User.findOne({ email, password, firstName, lastName, socialHandle, tId });
+    const { email, password, firstName, lastName, tId, socialHandle } = reqBody.data;
+    // Hash the password
+    const hashedPassword = yield bcrypt.hash(password, saltRounds);
+    const user = yield db_1.User.findOne({ email });
     if (user) {
         return res.status(403).json({
-            message: "User Already Exist!"
+            message: "User Already Exists!"
         });
     }
-    const newUser = new db_1.User({ email, password, firstName, lastName, socialHandle, tId });
+    const newUser = new db_1.User({ email, password: hashedPassword, firstName, lastName, socialHandle, tId });
     yield newUser.save();
     const token = jsonwebtoken_1.default.sign({ id: newUser._id }, middleware_1.SECRET, { expiresIn: "1h" });
-    res.json({ message: "User Succesfully Created!", token });
+    res.json({ message: "User Successfully Created!", token });
 }));
+// In the login route
 router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const reqBody = common_1.loginUserInputSchema.safeParse(req.body);
     if (!reqBody.success) {
         return res.status(403).json({ message: "Invalid Inputs!" });
     }
-    const email = reqBody.data.email;
-    const password = reqBody.data.password;
-    const user = yield db_1.User.findOne({ email, password });
+    const { email, password } = reqBody.data;
+    const user = yield db_1.User.findOne({ email });
     if (user) {
-        const token = jsonwebtoken_1.default.sign({ id: user._id }, middleware_1.SECRET, { expiresIn: "1h" });
-        res.status(200).json({ message: "Login Successfully!", token });
+        // Compare hashed password
+        const match = yield bcrypt.compare(password, user.password);
+        if (match) {
+            const token = jsonwebtoken_1.default.sign({ id: user._id }, middleware_1.SECRET, { expiresIn: "1h" });
+            return res.status(200).json({ message: "Login Successfully!", token });
+        }
     }
-    else {
-        return res.status(403).json({ message: "Invalid Inputs!" });
-    }
+    return res.status(403).json({ message: "Invalid Credentials!" });
 }));
 exports.default = router;
