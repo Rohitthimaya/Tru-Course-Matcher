@@ -19,6 +19,12 @@ const course_1 = __importDefault(require("./routes/course"));
 const index_1 = require("./db/index");
 const cors_1 = __importDefault(require("cors"));
 const middleware_1 = require("./middleware");
+require('dotenv').config();
+const dbUrl = process.env.DB_URL;
+if (!dbUrl) {
+    console.error("DB_URL is not defined in environment variables.");
+    process.exit(1); // Exit the process if DB_URL is not defined
+}
 const app = (0, express_1.default)();
 const port = 3000;
 app.use(express_1.default.json());
@@ -37,7 +43,7 @@ app.get("/me", middleware_1.authenticateJwt, (req, res) => __awaiter(void 0, voi
         email: user.email
     });
 }));
-mongoose_1.default.connect('mongodb+srv://thimayarohit:Rohit2728@cluster0.ulnmn04.mongodb.net/compcourses', { dbName: "compcourses" });
+mongoose_1.default.connect(dbUrl, { dbName: "compcourses" });
 app.listen(port, () => {
     console.log(`App Running on http://localhost:${port}`);
 });

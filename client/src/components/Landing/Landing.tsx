@@ -76,7 +76,7 @@ export const Landing = () => {
                     <div>
                         <Typography variant={"h5"}>Contact Us</Typography>
                         <Typography variant={"body1"}>Email: info@trucoursematcher.com</Typography>
-                        {/* Additional Footer Content */}
+                        <Typography variant={"body2"}>Made with ❤ By Rohit Thimaya</Typography>
                     </div>
                 </Grid>
             </Grid>

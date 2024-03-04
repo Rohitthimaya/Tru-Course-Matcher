@@ -48,7 +48,6 @@ router.post("/login", async (req, res) => {
     const user = await User.findOne({ email, password });
     if (user) {
         const token = jwt.sign({ id: user._id }, SECRET, { expiresIn: "1h" });
-        // localStorage.setItem("Token", token);
         res.status(200).json({ message: "Login Successfully!", token });
     } else {
         return res.status(403).json({ message: "Invalid Inputs!" });

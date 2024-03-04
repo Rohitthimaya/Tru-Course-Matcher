@@ -15,6 +15,7 @@ export const Signup = () => {
     const [tId, setTruId] = useState("");
     const setUser = useSetRecoilState(userState);
     const navigate = useNavigate();
+    const adminEmail = import.meta.env.VITE_ADMINEMAIL;
 
     const handleSubmit = () => {
         // Your form submission logic here
@@ -33,7 +34,7 @@ export const Signup = () => {
             setUser({
                 isLoading: false,
                 userEmail: email,
-                isAdmin: email == "thimayarohit@gmail.com"
+                isAdmin: email == adminEmail
             })
 
             // Reset form fields

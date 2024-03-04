@@ -11,6 +11,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const setUser = useSetRecoilState(userState);
+    const adminEmail = import.meta.env.VITE_ADMINEMAIL;
 
     const handleClick = () => {
         axios
@@ -25,7 +26,7 @@ const Login = () => {
                 setUser({
                     isLoading: false,
                     userEmail: email,
-                    isAdmin: email == "thimayarohit@gmail.com"
+                    isAdmin: email == adminEmail
                 })
                 navigate("/");
             })

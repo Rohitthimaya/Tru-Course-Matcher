@@ -1,5 +1,4 @@
-# Landing Page:
--> Once user hits / route it should be routed to landing page.
--> if user is not logged in, provide a page where they can register/login, with
-   dynamic navbar.
--> if user is logged in then should be seeing main page, with dynamic navbar.
+1. Footer Name (done)
+2. Hash passwords 
+3. Hide important stuff (git ignore or env variables) 
+4. display incorrect credential details

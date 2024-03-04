@@ -52,7 +52,6 @@ router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* 
     const user = yield db_1.User.findOne({ email, password });
     if (user) {
         const token = jsonwebtoken_1.default.sign({ id: user._id }, middleware_1.SECRET, { expiresIn: "1h" });
-        // localStorage.setItem("Token", token);
         res.status(200).json({ message: "Login Successfully!", token });
     }
     else {
