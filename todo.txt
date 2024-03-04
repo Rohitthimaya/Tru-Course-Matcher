@@ -1,4 +1,4 @@
 1. Footer Name (done)
-2. Hash passwords 
+2. Hash passwords (done)
 3. Hide important stuff (git ignore or env variables) (done)
 4. display incorrect credential details

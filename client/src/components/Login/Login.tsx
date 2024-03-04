@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Container, Paper, TextField, Button, Typography } from "@mui/material";
-import {Appbar} from "../Appbar/Appbar";
+import { Appbar } from "../Appbar/Appbar";
 import { useSetRecoilState } from "recoil";
 import { userState } from "../../store/atoms/user";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [isError, setIsError] = useState(false);
     const navigate = useNavigate();
     const setUser = useSetRecoilState(userState);
     const adminEmail = import.meta.env.VITE_ADMINEMAIL;
@@ -32,6 +33,7 @@ const Login = () => {
             })
             .catch((err) => {
                 console.log(err);
+                setIsError(true);
             });
     };
 
@@ -58,6 +60,11 @@ const Login = () => {
                         Login
                     </Typography>
                     <div>
+                        {isError && (
+                            <Typography sx={{ color: "red", textAlign: "center", marginBottom: 2 }}>
+                                Invalid Credentials
+                            </Typography>
+                        )}
                         <TextField
                             label="Email"
                             variant="outlined"

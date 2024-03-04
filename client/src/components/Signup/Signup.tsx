@@ -28,7 +28,7 @@ export const Signup = () => {
             socialHandle
         }).then((res) => {
             const data = res.data;
-            const token = data.token
+            const token = data.token;
             localStorage.setItem("Token", token);
 
             setUser({
@@ -98,7 +98,7 @@ export const Signup = () => {
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <TextField
-                        label="Password"
+                        label="Password (Min 6 and Max 30 size)"
                         variant="outlined"
                         fullWidth
                         margin="normal"
