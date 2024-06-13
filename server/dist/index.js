@@ -20,7 +20,8 @@ const index_1 = require("./db/index");
 const cors_1 = __importDefault(require("cors"));
 const middleware_1 = require("./middleware");
 require('dotenv').config();
-const dbUrl = process.env.DB_URL;
+// const dbUrl = process.env.DB_URL;
+const dbUrl = "mongodb+srv://thimayarohit:Rohit2728@cluster0.ulnmn04.mongodb.net/compcourses";
 if (!dbUrl) {
     console.error("DB_URL is not defined in environment variables.");
     process.exit(1); // Exit the process if DB_URL is not defined
