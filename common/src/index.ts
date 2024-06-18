@@ -1,6 +1,9 @@
 import z from 'zod';
 
-const emailSchema = z.string().email();
+const emailSchema = z.string().email().refine((email) => email.endsWith('@mytru.ca'), {
+    message: "Email must valid tru email",
+  });
+  
 const passwordSchema = z.string().min(6).max(30);
 const firstNameSchema = z.string();
 const lastNameSchema = z.string();

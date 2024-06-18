@@ -1,6 +1,6 @@
 import z from 'zod';
 export declare const loginUserInputSchema: z.ZodObject<{
-    email: z.ZodString;
+    email: z.ZodEffects<z.ZodString, string, string>;
     password: z.ZodString;
 }, "strip", z.ZodTypeAny, {
     email: string;
@@ -10,7 +10,7 @@ export declare const loginUserInputSchema: z.ZodObject<{
     password: string;
 }>;
 export declare const signupUserInputSchema: z.ZodObject<{
-    email: z.ZodString;
+    email: z.ZodEffects<z.ZodString, string, string>;
     password: z.ZodString;
     firstName: z.ZodString;
     lastName: z.ZodString;
