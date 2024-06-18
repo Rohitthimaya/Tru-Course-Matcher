@@ -1,4 +1,3 @@
-1. Footer Name (done)
-2. Hash passwords (done)
-3. Hide important stuff (git ignore or env variables) (done)
-4. display incorrect credential details
+1. Email register mechanism
+2. front page logo
+3. update to new courses
