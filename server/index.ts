@@ -8,7 +8,6 @@ import { authenticateJwt } from "./middleware";
 
 require('dotenv').config();
 // const dbUrl = process.env.DB_URL;
-const dbUrl = "mongodb+srv://thimayarohit:Rohit2728@cluster0.ulnmn04.mongodb.net/compcourses";
 
 if (!dbUrl) {
     console.error("DB_URL is not defined in environment variables.");
